@@ -1,85 +1,143 @@
 /**
  * Database Seeder - Run with: node src/seed.js
- * Seeds sample anime and manga data for development
+ * Seeds sample anime figure products for development
  */
 
 require('dotenv').config();
 const mongoose = require('mongoose');
-const Anime = require('./models/Anime');
-const Manga = require('./models/Manga');
+const Product = require('./models/Product');
 
-const sampleAnime = [
+const sampleProducts = [
   {
-    title: 'Demon Slayer',
-    titleJapanese: '鬼滅の刃',
-    synopsis: 'A young boy becomes a demon slayer after his family is slaughtered.',
-    coverImage: 'https://cdn.myanimelist.net/images/anime/1286/99889.jpg',
-    episodes: 26,
-    status: 'completed',
-    genres: ['Action', 'Supernatural', 'Drama'],
-    rating: 8.5,
-    year: 2019,
-    season: 'spring',
-    studio: 'ufotable',
-    featured: true
+    name: 'ONE PIECE - Monkey D. Luffy Grandista',
+    nameJapanese: 'ワンピース ルフィ',
+    description: 'High-quality Grandista figure of Monkey D. Luffy from One Piece. Detailed sculpting and vibrant colors.',
+    price: 79.99,
+    images: [{ url: 'https://m.media-amazon.com/images/I/61vKCSR+qQL._AC_SL1500_.jpg', alt: 'Luffy Grandista Figure' }],
+    category: 'figures',
+    brand: 'banpresto',
+    franchise: 'One Piece',
+    character: 'Monkey D. Luffy',
+    height: '21cm',
+    stock: 15,
+    status: 'in-stock',
+    featured: true,
+    isNew: true
   },
   {
-    title: 'Jujutsu Kaisen',
-    titleJapanese: '呪術廻戦',
-    synopsis: 'A boy swallows a cursed talisman and joins a secret organization.',
-    coverImage: 'https://cdn.myanimelist.net/images/anime/1171/109222.jpg',
-    episodes: 24,
-    status: 'completed',
-    genres: ['Action', 'Supernatural', 'School'],
-    rating: 8.7,
-    year: 2020,
-    season: 'fall',
-    studio: 'MAPPA',
-    featured: true
+    name: 'DEMON SLAYER - Zenitsu Agatsuma Funko Pop',
+    nameJapanese: '鬼滅の刃 善逸',
+    description: 'Funko Pop! Animation figure of Zenitsu Agatsuma in his iconic pose.',
+    price: 16.99,
+    images: [{ url: 'https://m.media-amazon.com/images/I/51+LhKVzURL._AC_SL1000_.jpg', alt: 'Zenitsu Funko Pop' }],
+    category: 'funko',
+    brand: 'funko',
+    franchise: 'Demon Slayer',
+    character: 'Zenitsu Agatsuma',
+    height: '10cm',
+    stock: 30,
+    status: 'in-stock',
+    featured: true,
+    isNew: true
   },
   {
-    title: 'Attack on Titan',
-    titleJapanese: '進撃の巨人',
-    synopsis: 'Humanity fights for survival against giant humanoid Titans.',
-    coverImage: 'https://cdn.myanimelist.net/images/anime/10/47347.jpg',
-    episodes: 75,
-    status: 'completed',
-    genres: ['Action', 'Drama', 'Fantasy'],
-    rating: 9.0,
-    year: 2013,
-    season: 'spring',
-    studio: 'Wit Studio',
-    featured: true
-  },
-];
-
-const sampleManga = [
-  {
-    title: 'One Piece',
-    titleJapanese: 'ワンピース',
-    synopsis: 'Follow Monkey D. Luffy on his journey to become the Pirate King.',
-    coverImage: 'https://cdn.myanimelist.net/images/manga/2/253146.jpg',
-    chapters: 1100,
-    volumes: 106,
-    status: 'ongoing',
-    genres: ['Action', 'Adventure', 'Comedy'],
-    rating: 9.2,
-    author: 'Eiichiro Oda',
-    featured: true
+    name: 'NARUTO - Sasuke Uchiha Figure',
+    nameJapanese: 'ナルト サスケ',
+    description: 'Dynamic action figure of Sasuke Uchiha with Sharingan activated.',
+    price: 49.99,
+    comparePrice: 59.99,
+    images: [{ url: 'https://m.media-amazon.com/images/I/71dCnKbhtVL._AC_SL1500_.jpg', alt: 'Sasuke Figure' }],
+    category: 'figures',
+    brand: 'banpresto',
+    franchise: 'Naruto',
+    character: 'Sasuke Uchiha',
+    height: '18cm',
+    stock: 8,
+    status: 'in-stock',
+    featured: true,
+    isNew: false
   },
   {
-    title: 'Chainsaw Man',
-    titleJapanese: 'チェンソーマン',
-    synopsis: 'Denji becomes a devil hunter with the power of chainsaws.',
-    coverImage: 'https://cdn.myanimelist.net/images/manga/3/216464.jpg',
-    chapters: 170,
-    volumes: 16,
-    status: 'ongoing',
-    genres: ['Action', 'Supernatural', 'Horror'],
-    rating: 8.8,
-    author: 'Tatsuki Fujimoto',
-    featured: true
+    name: 'JUJUTSU KAISEN - Gojo Satoru Premium Figure',
+    nameJapanese: '呪術廻戦 五条悟',
+    description: 'Premium quality figure of Gojo Satoru with detailed blindfold and uniform.',
+    price: 89.99,
+    images: [{ url: 'https://m.media-amazon.com/images/I/61zs2Y8AFBL._AC_SL1200_.jpg', alt: 'Gojo Figure' }],
+    category: 'figures',
+    brand: 'kotobukiya',
+    franchise: 'Jujutsu Kaisen',
+    character: 'Gojo Satoru',
+    height: '25cm',
+    stock: 5,
+    status: 'in-stock',
+    featured: true,
+    isNew: true
   },
+  {
+    name: 'DRAGON BALL - Vegeta Final Flash Figure',
+    nameJapanese: 'ドラゴンボール ベジータ',
+    description: 'Vegeta performing his iconic Final Flash attack. Incredible detail and pose.',
+    price: 69.99,
+    images: [{ url: 'https://m.media-amazon.com/images/I/71aHikmA0QL._AC_SL1500_.jpg', alt: 'Vegeta Figure' }],
+    category: 'figures',
+    brand: 'banpresto',
+    franchise: 'Dragon Ball',
+    character: 'Vegeta',
+    height: '20cm',
+    stock: 12,
+    status: 'in-stock',
+    featured: false,
+    isNew: true
+  },
+  {
+    name: 'CHAINSAW MAN - Denji Figure (Pre-Order)',
+    nameJapanese: 'チェンソーマン デンジ',
+    description: 'Pre-order the highly anticipated Denji figure in chainsaw form. Expected release Q2 2026.',
+    price: 129.99,
+    images: [{ url: 'https://m.media-amazon.com/images/I/71lk6FqccDL._AC_SL1500_.jpg', alt: 'Denji Figure' }],
+    category: 'pre-orders',
+    brand: 'kotobukiya',
+    franchise: 'Chainsaw Man',
+    character: 'Denji',
+    height: '28cm',
+    stock: 0,
+    status: 'pre-order',
+    releaseDate: new Date('2026-06-15'),
+    featured: true,
+    isNew: false
+  },
+  {
+    name: 'ATTACK ON TITAN - Levi Ackerman Nendoroid',
+    nameJapanese: '進撃の巨人 リヴァイ',
+    description: 'Adorable Nendoroid figure of Levi Ackerman with multiple accessories.',
+    price: 54.99,
+    images: [{ url: 'https://m.media-amazon.com/images/I/61fZYk-CfTL._AC_SL1200_.jpg', alt: 'Levi Nendoroid' }],
+    category: 'figures',
+    brand: 'good-smile',
+    franchise: 'Attack on Titan',
+    character: 'Levi Ackerman',
+    height: '10cm',
+    stock: 20,
+    status: 'in-stock',
+    featured: false,
+    isNew: false
+  },
+  {
+    name: 'MY HERO ACADEMIA - All Might Figure',
+    nameJapanese: '僕のヒーローアカデミア オールマイト',
+    description: 'Symbol of Peace All Might in his muscular form. True to anime appearance.',
+    price: 74.99,
+    images: [{ url: 'https://m.media-amazon.com/images/I/71T3p3YvJeL._AC_SL1500_.jpg', alt: 'All Might Figure' }],
+    category: 'figures',
+    brand: 'banpresto',
+    franchise: 'My Hero Academia',
+    character: 'All Might',
+    height: '22cm',
+    stock: 10,
+    status: 'in-stock',
+    featured: false,
+    isNew: true
+  }
 ];
 
 async function seed() {
@@ -88,14 +146,12 @@ async function seed() {
     console.log('Connected to MongoDB');
 
     // Clear existing data
-    await Anime.deleteMany({});
-    await Manga.deleteMany({});
-    console.log('Cleared existing data');
+    await Product.deleteMany({});
+    console.log('Cleared existing products');
 
     // Insert sample data
-    await Anime.insertMany(sampleAnime);
-    await Manga.insertMany(sampleManga);
-    console.log('Inserted sample anime and manga');
+    await Product.insertMany(sampleProducts);
+    console.log(`Inserted ${sampleProducts.length} sample products`);
 
     console.log('Seeding complete!');
     process.exit(0);
