@@ -46,24 +46,26 @@ export const authApi = {
     api('/auth/register', { method: 'POST', body: { username, email, password } }),
 }
 
-// Anime endpoints
-export const animeApi = {
+// Products endpoints
+export const productsApi = {
   getAll: (params?: Record<string, string>) => {
     const query = params ? '?' + new URLSearchParams(params).toString() : ''
-    return api(`/anime${query}`)
+    return api(`/products${query}`)
   },
-  getFeatured: () => api('/anime/featured'),
-  getById: (id: string) => api(`/anime/${id}`),
+  getFeatured: () => api('/products/featured'),
+  getNew: () => api('/products/new'),
+  getPreOrders: () => api('/products/pre-orders'),
+  getBySlug: (slug: string) => api(`/products/slug/${slug}`),
+  getById: (id: string) => api(`/products/${id}`),
 }
 
-// Manga endpoints
-export const mangaApi = {
-  getAll: (params?: Record<string, string>) => {
-    const query = params ? '?' + new URLSearchParams(params).toString() : ''
-    return api(`/manga${query}`)
-  },
-  getFeatured: () => api('/manga/featured'),
-  getById: (id: string) => api(`/manga/${id}`),
+// Orders endpoints
+export const ordersApi = {
+  create: (orderData: Record<string, unknown>) =>
+    api('/orders', { method: 'POST', body: orderData }),
+  getMyOrders: (token: string) =>
+    api('/orders/my-orders', { token }),
+  getById: (id: string) => api(`/orders/${id}`),
 }
 
 // User endpoints
@@ -71,10 +73,18 @@ export const userApi = {
   getProfile: (token: string) => api('/user/me', { token }),
   updateProfile: (token: string, data: Record<string, unknown>) =>
     api('/user/me', { method: 'PATCH', body: data, token }),
-  updateStats: (token: string, stats: Record<string, number>) =>
-    api('/user/stats', { method: 'PATCH', body: stats, token }),
-  addToWatchlist: (token: string, animeId: string) =>
-    api(`/user/watchlist/${animeId}`, { method: 'POST', token }),
-  removeFromWatchlist: (token: string, animeId: string) =>
-    api(`/user/watchlist/${animeId}`, { method: 'DELETE', token }),
+  getWishlist: (token: string) => api('/user/wishlist', { token }),
+  addToWishlist: (token: string, productId: string) =>
+    api(`/user/wishlist/${productId}`, { method: 'POST', token }),
+  removeFromWishlist: (token: string, productId: string) =>
+    api(`/user/wishlist/${productId}`, { method: 'DELETE', token }),
+  getCart: (token: string) => api('/user/cart', { token }),
+  addToCart: (token: string, productId: string, quantity?: number) =>
+    api('/user/cart', { method: 'POST', body: { productId, quantity }, token }),
+  updateCartItem: (token: string, productId: string, quantity: number) =>
+    api(`/user/cart/${productId}`, { method: 'PATCH', body: { quantity }, token }),
+  removeFromCart: (token: string, productId: string) =>
+    api(`/user/cart/${productId}`, { method: 'DELETE', token }),
+  clearCart: (token: string) =>
+    api('/user/cart', { method: 'DELETE', token }),
 }
