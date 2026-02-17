@@ -1,67 +1,108 @@
 'use client'
 
-import { Search, ShoppingBag, Heart, User } from 'lucide-react'
+import { useState } from 'react'
+import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
-import { useCartStore } from '@/lib/store'
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/shop', label: 'Shop' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+]
 
 export default function Navbar() {
-  const itemCount = useCartStore((state) => state.getItemCount())
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <nav className="relative z-20 flex items-center justify-between px-8 py-4">
-      {/* Logo */}
-      <Link href="/" className="flex items-center gap-2">
-        <span className="font-jp text-xl font-bold tracking-wide text-neutral-800">
-          アニキフィギュア
-        </span>
-      </Link>
-
-      {/* Center Nav */}
-      <div className="hidden md:flex items-center gap-8">
-        <Link href="/shop" className="text-sm font-medium text-neutral-600 hover:text-honey-600 transition-colors">
-          Shop All
-        </Link>
-        <Link href="/shop?category=figures" className="text-sm font-medium text-neutral-600 hover:text-honey-600 transition-colors">
-          Figures
-        </Link>
-        <Link href="/shop?category=funko" className="text-sm font-medium text-neutral-600 hover:text-honey-600 transition-colors">
-          Funko Pop
-        </Link>
-        <Link href="/shop?category=pre-orders" className="text-sm font-medium text-neutral-600 hover:text-honey-600 transition-colors">
-          Pre-Orders
-        </Link>
-      </div>
-
-      {/* Right side */}
-      <div className="flex items-center gap-4">
-        {/* Search */}
-        <button className="flex items-center gap-2 px-4 py-2 bg-white/60 rounded-full border border-neutral-200 hover:border-honey-400 transition-colors">
-          <Search className="w-4 h-4 text-neutral-500" />
-          <span className="text-sm text-neutral-500 hidden sm:inline">Search</span>
-        </button>
-
-        {/* Wishlist */}
-        <button className="p-2 hover:bg-white/50 rounded-full transition-colors">
-          <Heart className="w-5 h-5 text-neutral-600" />
-        </button>
-
-        {/* Cart */}
-        <Link href="/cart" className="relative p-2 hover:bg-white/50 rounded-full transition-colors">
-          <ShoppingBag className="w-5 h-5 text-neutral-600" />
-          {itemCount > 0 && (
-            <span className="absolute -top-1 -right-1 w-5 h-5 bg-honey-500 text-white text-xs rounded-full flex items-center justify-center font-medium">
-              {itemCount}
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/80 backdrop-blur-md border-b border-honey-100">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-honey-400 to-honey-500 flex items-center justify-center">
+              <span className="text-white font-bold text-lg">A</span>
+            </div>
+            <span className="text-xl font-semibold text-neutral-800 tracking-tight">
+              Aniki
             </span>
-          )}
-        </Link>
+          </Link>
 
-        {/* User */}
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-honey-300 to-honey-500 flex items-center justify-center cursor-pointer hover:shadow-lg transition-shadow">
-            <User className="w-5 h-5 text-white" />
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-neutral-600 hover:text-honey-600 transition-colors relative group"
+              >
+                {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-honey-500 group-hover:w-full transition-all duration-300" />
+              </Link>
+            ))}
           </div>
+
+          {/* Auth Buttons */}
+          <div className="hidden md:flex items-center gap-3">
+            <Link
+              href="/auth/login"
+              className="px-5 py-2.5 text-sm font-medium text-neutral-700 hover:text-honey-600 transition-colors"
+            >
+              Sign In
+            </Link>
+            <Link
+              href="/auth/register"
+              className="px-5 py-2.5 text-sm font-medium text-white bg-neutral-900 hover:bg-neutral-800 rounded-full transition-colors"
+            >
+              Sign Up
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg hover:bg-honey-50 transition-colors"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6 text-neutral-700" />
+            ) : (
+              <Menu className="w-6 h-6 text-neutral-700" />
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white border-t border-honey-100">
+          <div className="px-6 py-4 space-y-3">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 text-neutral-700 hover:text-honey-600 font-medium transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="pt-4 border-t border-neutral-100 space-y-2">
+              <Link
+                href="/auth/login"
+                className="block w-full py-2.5 text-center text-neutral-700 hover:text-honey-600 font-medium transition-colors"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/auth/register"
+                className="block w-full py-2.5 text-center text-white bg-neutral-900 rounded-full font-medium"
+              >
+                Sign Up
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   )
 }
