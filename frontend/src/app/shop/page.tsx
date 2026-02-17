@@ -172,7 +172,7 @@ export default function ShopPage() {
         {/* Empty State */}
         {filteredProducts.length === 0 && (
           <div className="text-center py-16">
-            <p className="text-5xl mb-4">😔</p>
+            <p className="text-5xl mb-4">💢</p>
             <h3 className="text-lg font-semibold text-neutral-900 mb-2">No Products Found</h3>
             <p className="text-neutral-600">Try adjusting your filters or search terms</p>
           </div>
