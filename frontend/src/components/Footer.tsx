@@ -66,7 +66,7 @@ export default function Footer() {
             <div className="space-y-3 text-sm text-neutral-400">
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4" />
-                <span>support@aniki.com</span>
+                <span>www.tiktok.com/@anikiofficial.nl</span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4" />
