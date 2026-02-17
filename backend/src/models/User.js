@@ -24,20 +24,33 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
-  stats: {
-    episodesWatched: { type: Number, default: 0 },
-    chaptersRead: { type: Number, default: 0 },
-    completedAnime: { type: Number, default: 0 },
-    completedManga: { type: Number, default: 0 }
+  role: {
+    type: String,
+    enum: ['customer', 'admin'],
+    default: 'customer'
   },
-  watchlist: [{
+  wishlist: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Anime'
+    ref: 'Product'
   }],
-  readlist: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Manga'
-  }]
+  cart: [{
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product'
+    },
+    quantity: {
+      type: Number,
+      default: 1
+    }
+  }],
+  address: {
+    fullName: String,
+    address: String,
+    city: String,
+    postalCode: String,
+    country: String,
+    phone: String
+  }
 }, { timestamps: true });
 
 userSchema.pre('save', async function(next) {
