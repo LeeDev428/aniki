@@ -1,6 +1,8 @@
 'use client'
 
-import { Truck, ShieldCheck, Headphones, RotateCcw, Star, Zap } from 'lucide-react'
+import { Truck, ShieldCheck, Headphones, RotateCcw, Zap } from 'lucide-react'
+import Link from 'next/link'
+import { FadeIn, StaggerContainer, StaggerItem } from './animations'
 
 const features = [
   {
@@ -36,117 +38,119 @@ export default function Features() {
   return (
     <>
       {/* Features Section */}
-      <section className="relative py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 mb-4">
+      <section className="relative py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <FadeIn className="text-center mb-10">
+            <h2 className="text-2xl lg:text-3xl font-bold text-neutral-900 mb-3">
               Why Choose Us
             </h2>
-            <p className="text-neutral-600 max-w-2xl mx-auto">
+            <p className="text-sm text-neutral-600 max-w-xl mx-auto">
               We&apos;re committed to providing the best experience for anime collectors worldwide.
             </p>
-          </div>
+          </FadeIn>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {features.map((feature, index) => (
-              <div 
-                key={index}
-                className="group p-6 bg-cream rounded-2xl hover:bg-honey-50 transition-all duration-300 hover:shadow-lg"
-              >
-                <div className="w-14 h-14 mb-5 rounded-xl bg-honey-100 group-hover:bg-honey-200 flex items-center justify-center transition-colors">
-                  <feature.icon className="w-7 h-7 text-honey-600" />
+              <StaggerItem key={index}>
+                <div className="group p-5 bg-cream rounded-xl hover:bg-honey-50 transition-all duration-300 hover:shadow-lg h-full">
+                  <div className="w-12 h-12 mb-4 rounded-lg bg-honey-100 group-hover:bg-honey-200 flex items-center justify-center transition-colors">
+                    <feature.icon className="w-6 h-6 text-honey-600" />
+                  </div>
+                  <h3 className="font-semibold text-base text-neutral-900 mb-1.5">
+                    {feature.title}
+                  </h3>
+                  <p className="text-xs text-neutral-600 leading-relaxed">
+                    {feature.description}
+                  </p>
                 </div>
-                <h3 className="font-semibold text-lg text-neutral-900 mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-sm text-neutral-600 leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Categories Section */}
-      <section className="relative py-20 bg-cream">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 mb-12">
+      <section className="relative py-16 bg-cream">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <FadeIn className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-10">
             <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 mb-4">
+              <h2 className="text-2xl lg:text-3xl font-bold text-neutral-900 mb-2">
                 Browse Categories
               </h2>
-              <p className="text-neutral-600 max-w-xl">
+              <p className="text-sm text-neutral-600 max-w-lg">
                 Explore our wide range of collectibles from your favorite anime series and games.
               </p>
             </div>
-            <a 
+            <Link 
               href="/shop" 
-              className="px-6 py-3 bg-neutral-900 text-white rounded-full font-medium hover:bg-neutral-800 transition-colors"
+              className="px-5 py-2.5 bg-neutral-900 text-white text-sm rounded-full font-medium hover:bg-neutral-800 transition-colors"
             >
               View All Products
-            </a>
-          </div>
+            </Link>
+          </FadeIn>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+          <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
             {categories.map((category, index) => (
-              <a
-                key={index}
-                href={`/shop?category=${category.name.toLowerCase().replace(' ', '-')}`}
-                className="group relative p-6 lg:p-8 bg-white rounded-2xl hover:shadow-xl transition-all duration-300 overflow-hidden"
-              >
-                <div className="absolute top-4 right-4 text-4xl opacity-20 group-hover:opacity-40 transition-opacity">
-                  {category.emoji}
-                </div>
-                <div className="relative">
-                  <span className="text-sm text-honey-600 font-medium">{category.count}</span>
-                  <h3 className="text-lg font-semibold text-neutral-900 mt-1 group-hover:text-honey-600 transition-colors">
-                    {category.name}
-                  </h3>
-                </div>
-              </a>
+              <StaggerItem key={index}>
+                <Link
+                  href={`/shop?category=${category.name.toLowerCase().replace(' ', '-')}`}
+                  className="group relative p-5 lg:p-6 bg-white rounded-xl hover:shadow-lg transition-all duration-300 overflow-hidden block"
+                >
+                  <div className="absolute top-3 right-3 text-3xl opacity-20 group-hover:opacity-40 transition-opacity">
+                    {category.emoji}
+                  </div>
+                  <div className="relative">
+                    <span className="text-xs text-honey-600 font-medium">{category.count}</span>
+                    <h3 className="text-base font-semibold text-neutral-900 mt-0.5 group-hover:text-honey-600 transition-colors">
+                      {category.name}
+                    </h3>
+                  </div>
+                </Link>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="relative overflow-hidden bg-gradient-to-r from-neutral-900 to-neutral-800 rounded-3xl p-8 lg:p-16">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-honey-500 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-honey-400 rounded-full blur-3xl" />
-            </div>
-
-            <div className="relative text-center max-w-2xl mx-auto">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-honey-500/20 rounded-full mb-6">
-                <Zap className="w-4 h-4 text-honey-400" />
-                <span className="text-sm font-medium text-honey-400">Limited Time Offer</span>
+      <FadeIn>
+        <section className="relative py-16">
+          <div className="max-w-6xl mx-auto px-6 lg:px-8">
+            <div className="relative overflow-hidden bg-gradient-to-r from-neutral-900 to-neutral-800 rounded-2xl p-6 lg:p-12">
+              {/* Background Pattern */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-0 right-0 w-72 h-72 bg-honey-500 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-honey-400 rounded-full blur-3xl" />
               </div>
-              
-              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-                Get 10% Off Your First Order
-              </h2>
-              <p className="text-neutral-400 mb-8">
-                Sign up now and receive exclusive deals, early access to new arrivals, and special discounts.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-5 py-3 bg-white/10 border border-white/20 rounded-full text-white placeholder-neutral-400 focus:outline-none focus:border-honey-500"
-                />
-                <button className="px-6 py-3 bg-honey-500 text-white rounded-full font-medium hover:bg-honey-600 transition-colors">
-                  Subscribe
-                </button>
+
+              <div className="relative text-center max-w-xl mx-auto">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-honey-500/20 rounded-full mb-4">
+                  <Zap className="w-3.5 h-3.5 text-honey-400" />
+                  <span className="text-xs font-medium text-honey-400">Limited Time Offer</span>
+                </div>
+                
+                <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3">
+                  Get 10% Off Your First Order
+                </h2>
+                <p className="text-sm text-neutral-400 mb-6">
+                  Sign up now and receive exclusive deals, early access to new arrivals, and special discounts.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-2 justify-center max-w-sm mx-auto">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="flex-1 px-4 py-2.5 text-sm bg-white/10 border border-white/20 rounded-full text-white placeholder-neutral-400 focus:outline-none focus:border-honey-500"
+                  />
+                  <button className="px-5 py-2.5 text-sm bg-honey-500 text-white rounded-full font-medium hover:bg-honey-600 transition-colors">
+                    Subscribe
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </FadeIn>
     </>
   )
 }
