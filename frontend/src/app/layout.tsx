@@ -5,6 +5,11 @@ export const metadata: Metadata = {
   title: 'Aniki | Premium Anime Figure Store',
   description: 'Discover authentic anime figures, Funko Pops, and premium collectibles. 100% official products from top brands worldwide.',
   keywords: ['anime figures', 'collectibles', 'funko pop', 'anime merchandise', 'figurines'],
+  icons: {
+    icon: '/assets/img/aniki.png',
+    shortcut: '/assets/img/aniki.png',
+    apple: '/assets/img/aniki.png',
+  },
 }
 
 export default function RootLayout({
