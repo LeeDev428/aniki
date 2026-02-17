@@ -68,7 +68,7 @@ export default function LoadingScreen({ minDuration = 2000 }: LoadingScreenProps
                 repeat: Infinity, 
                 ease: 'easeInOut' 
               }}
-              className="w-20 h-20 relative"
+              className="w-48 h-48 relative"
             >
               <Image
                 src="/assets/img/aniki.png"
