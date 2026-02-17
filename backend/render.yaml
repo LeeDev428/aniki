@@ -1,0 +1,18 @@
+# Render deployment configuration
+# Create a render.yaml in root for Blueprint deployments
+
+services:
+  - type: web
+    name: aniki-api
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        sync: false
