@@ -1,20 +1,23 @@
 'use client'
 
-import { MessageCircle, Grid, Command, Volume2 } from 'lucide-react'
+import { Sparkles, Package, Bookmark, Clock } from 'lucide-react'
+import Link from 'next/link'
 
 const sidebarItems = [
-  { icon: MessageCircle, active: true },
-  { icon: Grid, active: false },
-  { icon: Command, active: false },
-  { icon: Volume2, active: false },
+  { icon: Sparkles, href: '/shop?featured=true', label: 'Featured', active: true },
+  { icon: Package, href: '/shop?isNew=true', label: 'New Arrivals', active: false },
+  { icon: Clock, href: '/shop?category=pre-orders', label: 'Pre-Orders', active: false },
+  { icon: Bookmark, href: '/wishlist', label: 'Wishlist', active: false },
 ]
 
 export default function Sidebar() {
   return (
     <aside className="relative z-10 flex flex-col items-center gap-6 py-8 px-4 ml-4">
       {sidebarItems.map((item, index) => (
-        <button
+        <Link
           key={index}
+          href={item.href}
+          title={item.label}
           className={`p-3 rounded-xl transition-all ${
             item.active
               ? 'bg-honey-400 text-white shadow-lg shadow-honey-400/30'
@@ -22,7 +25,7 @@ export default function Sidebar() {
           }`}
         >
           <item.icon className="w-5 h-5" />
-        </button>
+        </Link>
       ))}
     </aside>
   )
