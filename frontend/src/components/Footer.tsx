@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Instagram, Twitter, Facebook, Youtube, Mail, MapPin, Phone } from 'lucide-react'
 
 const footerLinks = {
@@ -42,19 +43,21 @@ export default function Footer() {
   return (
     <footer className="bg-neutral-900 text-white">
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 lg:gap-10">
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-honey-400 to-honey-500 flex items-center justify-center">
-                <span className="text-white font-bold text-lg">A</span>
+            <Link href="/" className="flex items-center mb-4">
+              <div className="w-12 h-12 relative">
+                <Image
+                  src="/assets/img/aniki.png"
+                  alt="Aniki"
+                  fill
+                  className="object-contain"
+                />
               </div>
-              <span className="text-xl font-semibold tracking-tight">
-                Aniki
-              </span>
             </Link>
-            <p className="text-neutral-400 text-sm leading-relaxed mb-6 max-w-xs">
+            <p className="text-neutral-400 text-xs leading-relaxed mb-4 max-w-xs">
               Your ultimate destination for premium anime figures and collectibles. 
               100% authentic products from top brands worldwide.
             </p>
