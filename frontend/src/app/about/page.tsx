@@ -31,7 +31,7 @@ const values = [
 ]
 
 const team = [
-  { name: 'Alex Chen', role: 'Founder & CEO', emoji: '👨‍💼' },
+  { name: 'DN Reinhardt', role: 'Founder & CEO', emoji: '👨‍💼' },
   { name: 'Yuki Tanaka', role: 'Product Manager', emoji: '👩‍💻' },
   { name: 'Mike Johnson', role: 'Operations Lead', emoji: '📦' },
   { name: 'Sarah Kim', role: 'Customer Support', emoji: '💬' },
