@@ -1,36 +1,61 @@
-export type Anime = {
+export type Product = {
   _id: string
-  title: string
-  titleJapanese?: string
-  synopsis?: string
-  coverImage?: string
-  bannerImage?: string
-  episodes: number
-  status: 'airing' | 'completed' | 'upcoming'
-  genres: string[]
-  rating: number
-  year?: number
-  season?: 'winter' | 'spring' | 'summer' | 'fall'
-  studio?: string
+  name: string
+  nameJapanese?: string
+  slug: string
+  description?: string
+  price: number
+  comparePrice?: number
+  images: { url: string; alt: string }[]
+  category: 'figures' | 'funko' | 'model-kits' | 'accessories' | 'pre-orders'
+  brand: 'banpresto' | 'kotobukiya' | 'good-smile' | 'megahouse' | 'bandai' | 'funko' | 'other'
+  franchise?: string
+  character?: string
+  height?: string
+  material?: string
+  stock: number
+  status: 'in-stock' | 'out-of-stock' | 'pre-order' | 'coming-soon'
+  releaseDate?: string
   featured: boolean
+  isNew: boolean
+  tags: string[]
   createdAt: string
   updatedAt: string
 }
 
-export type Manga = {
+export type CartItem = {
+  product: Product
+  quantity: number
+}
+
+export type OrderItem = {
+  product: string | Product
+  name: string
+  price: number
+  quantity: number
+}
+
+export type Order = {
   _id: string
-  title: string
-  titleJapanese?: string
-  synopsis?: string
-  coverImage?: string
-  chapters: number
-  volumes: number
-  status: 'ongoing' | 'completed' | 'hiatus'
-  genres: string[]
-  rating: number
-  author?: string
-  artist?: string
-  featured: boolean
+  user?: string
+  guestEmail?: string
+  guestName?: string
+  items: OrderItem[]
+  subtotal: number
+  shipping: number
+  total: number
+  shippingAddress: {
+    fullName: string
+    address: string
+    city: string
+    postalCode: string
+    country: string
+    phone: string
+  }
+  status: 'pending' | 'confirmed' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
+  paymentStatus: 'pending' | 'paid' | 'failed' | 'refunded'
+  paymentMethod?: string
+  notes?: string
   createdAt: string
   updatedAt: string
 }
@@ -40,12 +65,15 @@ export type User = {
   username: string
   email: string
   avatar?: string
-  stats: {
-    episodesWatched: number
-    chaptersRead: number
-    completedAnime: number
-    completedManga: number
+  role: 'customer' | 'admin'
+  wishlist: Product[]
+  cart: CartItem[]
+  address?: {
+    fullName: string
+    address: string
+    city: string
+    postalCode: string
+    country: string
+    phone: string
   }
-  watchlist: Anime[]
-  readlist: Manga[]
 }
