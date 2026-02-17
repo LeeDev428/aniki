@@ -1,6 +1,8 @@
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import Sidebar from '@/components/Sidebar'
+import Features from '@/components/Features'
+import Brands from '@/components/Brands'
 
 export default function Home() {
   return (
@@ -25,6 +27,9 @@ export default function Home() {
         <Sidebar />
         <Hero />
       </div>
+
+      <Features />
+      <Brands />
     </main>
   )
 }
