@@ -10,7 +10,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email Us',
-    content: 'support@aniki.com',
+    content: 'www.tiktok.com/@anikiofficial.nl',
     subtitle: 'We reply within 24 hours'
   },
   {
