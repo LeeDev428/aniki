@@ -3,114 +3,164 @@
 import { ArrowRight, Play } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { FadeIn, StaggerContainer, StaggerItem } from './animations'
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center pt-20">
+    <section className="relative min-h-[85vh] flex items-center pt-16">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-cream via-honey-50/50 to-cream" />
       
       {/* Decorative Elements */}
-      <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-honey-200/30 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-honey-100/40 rounded-full blur-3xl" />
+      <motion.div 
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 0.3 }}
+        transition={{ duration: 1.5, ease: 'easeOut' }}
+        className="absolute top-1/4 right-1/4 w-64 h-64 bg-honey-200/30 rounded-full blur-3xl" 
+      />
+      <motion.div 
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 0.4 }}
+        transition={{ duration: 1.5, delay: 0.2, ease: 'easeOut' }}
+        className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-honey-100/40 rounded-full blur-3xl" 
+      />
       
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative max-w-6xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           {/* Left Content */}
-          <div className="text-center lg:text-left">
+          <StaggerContainer className="text-center lg:text-left">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-honey-100 rounded-full mb-6">
-              <span className="w-2 h-2 bg-honey-500 rounded-full animate-pulse" />
-              <span className="text-sm font-medium text-honey-700">
-                Premium Anime Collectibles
-              </span>
-            </div>
+            <StaggerItem>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-honey-100 rounded-full mb-5">
+                <span className="w-1.5 h-1.5 bg-honey-500 rounded-full animate-pulse" />
+                <span className="text-xs font-medium text-honey-700">
+                  Premium Anime Collectibles
+                </span>
+              </div>
+            </StaggerItem>
 
             {/* Main Heading */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-neutral-900 leading-[1.1] tracking-tight mb-6">
-              Your Ultimate
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-honey-500 to-honey-600">
-                Anime Figure
-              </span>
-              Destination
-            </h1>
+            <StaggerItem>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-neutral-900 leading-[1.1] tracking-tight mb-5">
+                Your Ultimate
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-honey-500 to-honey-600">
+                  Anime Figure
+                </span>
+                Destination
+              </h1>
+            </StaggerItem>
 
             {/* Description */}
-            <p className="text-lg text-neutral-600 leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8">
-              Discover authentic anime figures, Funko Pops, and collectibles from 
-              your favorite series. 100% official, premium quality guaranteed.
-            </p>
+            <StaggerItem>
+              <p className="text-base text-neutral-600 leading-relaxed max-w-lg mx-auto lg:mx-0 mb-6">
+                Discover authentic anime figures, Funko Pops, and collectibles from 
+                your favorite series. 100% official, premium quality guaranteed.
+              </p>
+            </StaggerItem>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
-              <Link
-                href="/shop"
-                className="group flex items-center gap-2 px-8 py-4 bg-neutral-900 text-white rounded-full font-medium hover:bg-neutral-800 transition-all hover:shadow-lg hover:shadow-neutral-900/20"
-              >
-                Explore Collection
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <button className="flex items-center gap-2 px-6 py-4 text-neutral-700 hover:text-honey-600 font-medium transition-colors">
-                <div className="w-10 h-10 rounded-full bg-honey-100 flex items-center justify-center">
-                  <Play className="w-4 h-4 text-honey-600 ml-0.5" />
-                </div>
-                Watch Story
-              </button>
-            </div>
+            <StaggerItem>
+              <div className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start">
+                <Link
+                  href="/shop"
+                  className="group flex items-center gap-2 px-6 py-3 bg-neutral-900 text-white rounded-full text-sm font-medium hover:bg-neutral-800 transition-all hover:shadow-lg hover:shadow-neutral-900/20"
+                >
+                  Explore Collection
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link 
+                  href="/story"
+                  className="flex items-center gap-2 px-4 py-3 text-neutral-700 hover:text-honey-600 text-sm font-medium transition-colors"
+                >
+                  <div className="w-9 h-9 rounded-full bg-honey-100 flex items-center justify-center">
+                    <Play className="w-3.5 h-3.5 text-honey-600 ml-0.5" />
+                  </div>
+                  Watch Story
+                </Link>
+              </div>
+            </StaggerItem>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-8 mt-12 pt-8 border-t border-neutral-200">
-              <div>
-                <p className="text-3xl font-bold text-neutral-900">500+</p>
-                <p className="text-sm text-neutral-500 mt-1">Products</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-neutral-900">20+</p>
-                <p className="text-sm text-neutral-500 mt-1">Brands</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-neutral-900">10K+</p>
-                <p className="text-sm text-neutral-500 mt-1">Happy Collectors</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Content - Hero Image */}
-          <div className="relative">
-            <div className="relative aspect-square max-w-lg mx-auto">
-              {/* Background Shape */}
-              <div className="absolute inset-0 bg-gradient-to-br from-honey-200 to-honey-300 rounded-[3rem] rotate-6" />
-              <div className="absolute inset-0 bg-gradient-to-br from-honey-100 to-honey-200 rounded-[3rem] -rotate-3" />
-              
-              {/* Image Container */}
-              <div className="relative bg-white rounded-[2.5rem] overflow-hidden shadow-2xl shadow-honey-200/50 h-full flex items-center justify-center">
-                {/* Placeholder - Replace with actual figure image */}
-                <div className="text-center p-8">
-                  <div className="w-48 h-64 mx-auto bg-gradient-to-br from-honey-50 to-honey-100 rounded-3xl flex items-center justify-center mb-4">
-                    <span className="text-6xl">🎭</span>
-                  </div>
-                  <p className="text-sm text-neutral-400">Add your hero image</p>
-                  <p className="text-xs text-neutral-300">/public/hero-figure.png</p>
-                </div>
-              </div>
-
-              {/* Floating Card */}
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl p-4 flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-honey-100 flex items-center justify-center">
-                  <span className="text-2xl">⭐</span>
+            <StaggerItem>
+              <div className="grid grid-cols-3 gap-6 mt-10 pt-6 border-t border-neutral-200">
+                <div>
+                  <p className="text-2xl font-bold text-neutral-900">500+</p>
+                  <p className="text-xs text-neutral-500 mt-0.5">Products</p>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-neutral-800">Trending Now</p>
-                  <p className="text-xs text-neutral-500">500+ items this week</p>
+                  <p className="text-2xl font-bold text-neutral-900">20+</p>
+                  <p className="text-xs text-neutral-500 mt-0.5">Brands</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-neutral-900">10K+</p>
+                  <p className="text-xs text-neutral-500 mt-0.5">Happy Collectors</p>
                 </div>
               </div>
+            </StaggerItem>
+          </StaggerContainer>
+
+          {/* Right Content - Hero Image */}
+          <FadeIn direction="left" delay={0.3} className="relative">
+            <div className="relative aspect-square max-w-md mx-auto">
+              {/* Background Shape */}
+              <motion.div 
+                initial={{ rotate: 0, scale: 0.9 }}
+                animate={{ rotate: 6, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="absolute inset-0 bg-gradient-to-br from-honey-200 to-honey-300 rounded-[2.5rem]" 
+              />
+              <motion.div 
+                initial={{ rotate: 0, scale: 0.9 }}
+                animate={{ rotate: -3, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="absolute inset-0 bg-gradient-to-br from-honey-100 to-honey-200 rounded-[2.5rem]" 
+              />
+              
+              {/* Image Container */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="relative bg-white rounded-[2rem] overflow-hidden shadow-2xl shadow-honey-200/50 h-full flex items-center justify-center"
+              >
+                {/* Placeholder - Replace with actual figure image */}
+                <div className="text-center p-6">
+                  <div className="w-40 h-56 mx-auto bg-gradient-to-br from-honey-50 to-honey-100 rounded-2xl flex items-center justify-center mb-3">
+                    <span className="text-5xl">🎭</span>
+                  </div>
+                  <p className="text-xs text-neutral-400">Add your hero image</p>
+                  <p className="text-[10px] text-neutral-300">/public/hero-figure.png</p>
+                </div>
+              </motion.div>
+
+              {/* Floating Card */}
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                className="absolute -bottom-3 -left-3 bg-white rounded-xl shadow-lg p-3 flex items-center gap-2"
+              >
+                <div className="w-10 h-10 rounded-lg bg-honey-100 flex items-center justify-center">
+                  <span className="text-xl">⭐</span>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-neutral-800">Trending Now</p>
+                  <p className="text-[10px] text-neutral-500">500+ items this week</p>
+                </div>
+              </motion.div>
 
               {/* Floating Badge */}
-              <div className="absolute -top-2 -right-2 bg-honey-500 text-white rounded-full px-4 py-2 shadow-lg">
-                <p className="text-sm font-bold">NEW</p>
-              </div>
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.9 }}
+                className="absolute -top-2 -right-2 bg-honey-500 text-white rounded-full px-3 py-1.5 shadow-lg"
+              >
+                <p className="text-xs font-bold">NEW</p>
+              </motion.div>
             </div>
-          </div>
+          </FadeIn>
         </div>
       </div>
     </section>
