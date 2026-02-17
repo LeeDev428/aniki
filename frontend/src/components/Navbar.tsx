@@ -21,7 +21,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <div className="w-28 h-16 relative">
+            <div className="w-20 h-16 relative">
               <Image
                 src="/assets/img/aniki.png"
                 alt="Aniki"
