@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'アニマンガヘブン | Anime & Manga Hub',
-  description: 'Explore, read, and stream your favorite anime and manga.',
+  title: 'アニキフィギュア | Anime Figure Store',
+  description: 'Premium anime figures, Funko Pops, and collectibles. 100% official products from top brands.',
 }
 
 export default function RootLayout({
