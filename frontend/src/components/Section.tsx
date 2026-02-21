@@ -21,7 +21,7 @@ export default function Section({
   const bgClasses = {
     cream: 'bg-cream',
     white: 'bg-white',
-    honey: 'bg-honey-50',
+    honey: 'bg-primary-50',
   }
 
   const content = (
