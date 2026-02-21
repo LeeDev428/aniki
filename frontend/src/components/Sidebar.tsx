@@ -20,8 +20,8 @@ export default function Sidebar() {
           title={item.label}
           className={`p-3 rounded-xl transition-all ${
             item.active
-              ? 'bg-honey-400 text-white shadow-lg shadow-honey-400/30'
-              : 'bg-white/60 text-neutral-500 hover:bg-white hover:text-neutral-700'
+              ? 'bg-primary-400 text-dark-800 shadow-lg shadow-primary-400/30'
+              : 'bg-white/60 text-dark-400 hover:bg-white hover:text-dark-700'
           }`}
         >
           <item.icon className="w-5 h-5" />
