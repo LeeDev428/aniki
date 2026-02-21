@@ -41,16 +41,16 @@ export default function AboutPage() {
   return (
     <PageLayout>
       {/* Hero Section */}
-      <section className="relative py-16 bg-gradient-to-b from-honey-50 to-cream">
+      <section className="relative py-16 bg-gradient-to-b from-primary-50 to-cream">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <FadeIn className="text-center max-w-3xl mx-auto">
-            <span className="inline-block px-4 py-1.5 mb-4 text-xs font-medium text-honey-700 bg-honey-100 rounded-full">
+            <span className="inline-block px-4 py-1.5 mb-4 text-xs font-medium text-dark-700 bg-primary-100 rounded-full">
               Our Story
             </span>
-            <h1 className="text-3xl lg:text-4xl font-bold text-neutral-900 mb-4">
+            <h1 className="text-3xl lg:text-4xl font-bold text-dark-800 mb-4">
               Bringing Anime Dreams to Life
             </h1>
-            <p className="text-neutral-600 leading-relaxed">
+            <p className="text-dark-500 leading-relaxed">
               Founded by passionate anime enthusiasts, Aniki has grown from a small hobby 
               into one of the most trusted destinations for premium anime figures and collectibles.
             </p>
@@ -65,11 +65,11 @@ export default function AboutPage() {
             {stats.map((stat, index) => (
               <StaggerItem key={index}>
                 <div className="text-center p-6 bg-cream rounded-xl">
-                  <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-honey-100 flex items-center justify-center">
-                    <stat.icon className="w-6 h-6 text-honey-600" />
+                  <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-primary-100 flex items-center justify-center">
+                    <stat.icon className="w-6 h-6 text-primary-500" />
                   </div>
-                  <p className="text-2xl font-bold text-neutral-900">{stat.value}</p>
-                  <p className="text-sm text-neutral-500">{stat.label}</p>
+                  <p className="text-2xl font-bold text-dark-800">{stat.value}</p>
+                  <p className="text-sm text-dark-400">{stat.label}</p>
                 </div>
               </StaggerItem>
             ))}
@@ -82,15 +82,15 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <FadeIn direction="right">
-              <div className="aspect-square bg-gradient-to-br from-honey-100 to-honey-200 rounded-2xl flex items-center justify-center">
+              <div className="aspect-square bg-gradient-to-br from-primary-100 to-primary-200 rounded-2xl flex items-center justify-center">
                 <span className="text-8xl">🎭</span>
               </div>
             </FadeIn>
             <FadeIn direction="left" delay={0.2}>
-              <h2 className="text-2xl font-bold text-neutral-900 mb-4">
+              <h2 className="text-2xl font-bold text-dark-800 mb-4">
                 From Collectors, For Collectors
               </h2>
-              <div className="space-y-4 text-neutral-600 text-sm leading-relaxed">
+              <div className="space-y-4 text-dark-500 text-sm leading-relaxed">
                 <p>
                   What started as a personal collection in 2019 quickly became a mission to share 
                   our passion with fellow anime enthusiasts around the world.
@@ -114,18 +114,18 @@ export default function AboutPage() {
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <FadeIn className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-neutral-900 mb-2">Our Values</h2>
-            <p className="text-neutral-600 text-sm">What drives us every day</p>
+            <h2 className="text-2xl font-bold text-dark-800 mb-2">Our Values</h2>
+            <p className="text-dark-500 text-sm">What drives us every day</p>
           </FadeIn>
           <StaggerContainer className="grid md:grid-cols-3 gap-6">
             {values.map((value, index) => (
               <StaggerItem key={index}>
                 <div className="p-6 bg-cream rounded-xl text-center">
-                  <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-honey-100 flex items-center justify-center">
-                    <value.icon className="w-6 h-6 text-honey-600" />
+                  <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-primary-100 flex items-center justify-center">
+                    <value.icon className="w-6 h-6 text-primary-500" />
                   </div>
-                  <h3 className="font-semibold text-neutral-900 mb-2">{value.title}</h3>
-                  <p className="text-sm text-neutral-600">{value.description}</p>
+                  <h3 className="font-semibold text-dark-800 mb-2">{value.title}</h3>
+                  <p className="text-sm text-dark-500">{value.description}</p>
                 </div>
               </StaggerItem>
             ))}
@@ -137,18 +137,18 @@ export default function AboutPage() {
       <section className="py-16 bg-cream">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <FadeIn className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-neutral-900 mb-2">Meet the Team</h2>
-            <p className="text-neutral-600 text-sm">The people behind Aniki</p>
+            <h2 className="text-2xl font-bold text-dark-800 mb-2">Meet the Team</h2>
+            <p className="text-dark-500 text-sm">The people behind Aniki</p>
           </FadeIn>
           <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map((member, index) => (
               <StaggerItem key={index}>
                 <div className="text-center">
-                  <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-gradient-to-br from-honey-100 to-honey-200 flex items-center justify-center">
+                  <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
                     <span className="text-3xl">{member.emoji}</span>
                   </div>
-                  <h3 className="font-semibold text-neutral-900">{member.name}</h3>
-                  <p className="text-sm text-neutral-500">{member.role}</p>
+                  <h3 className="font-semibold text-dark-800">{member.name}</h3>
+                  <p className="text-sm text-dark-400">{member.role}</p>
                 </div>
               </StaggerItem>
             ))}
@@ -158,17 +158,17 @@ export default function AboutPage() {
 
       {/* CTA Section */}
       <FadeIn>
-        <section className="py-16 bg-neutral-900">
+        <section className="py-16 bg-dark-800">
           <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
             <h2 className="text-2xl font-bold text-white mb-3">
               Ready to Start Your Collection?
             </h2>
-            <p className="text-neutral-400 text-sm mb-6 max-w-lg mx-auto">
+            <p className="text-dark-300 text-sm mb-6 max-w-lg mx-auto">
               Join thousands of happy collectors and discover your next favorite figure.
             </p>
             <a
               href="/shop"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-honey-500 text-white rounded-full font-medium hover:bg-honey-600 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary-400 text-dark-800 rounded-full font-medium hover:bg-primary-300 transition-colors"
             >
               Browse Collection
             </a>
