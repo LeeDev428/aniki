@@ -48,8 +48,8 @@ export default function ShopPage() {
       <div className="max-w-6xl mx-auto px-6 lg:px-8 py-8">
         {/* Header */}
         <FadeIn className="mb-8">
-          <h1 className="text-3xl font-bold text-neutral-900 mb-2">Shop</h1>
-          <p className="text-neutral-600">
+          <h1 className="text-3xl font-bold text-dark-800 mb-2">Shop</h1>
+          <p className="text-dark-500">
             Discover our collection of premium anime figures and collectibles
           </p>
         </FadeIn>
@@ -58,11 +58,11 @@ export default function ShopPage() {
         <FadeIn delay={0.1} className="flex flex-wrap items-center justify-between gap-4 mb-6">
           {/* Search */}
           <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-400" />
             <input
               type="text"
               placeholder="Search products..."
-              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-honey-500/20 focus:border-honey-500"
+              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-dark-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/20 focus:border-primary-400"
             />
           </div>
 
@@ -70,7 +70,7 @@ export default function ShopPage() {
             {/* Filter Toggle */}
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-4 py-2.5 text-sm bg-white border border-neutral-200 rounded-xl hover:bg-neutral-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 text-sm bg-white border border-dark-200 rounded-xl hover:bg-primary-50 transition-colors"
             >
               <SlidersHorizontal className="w-4 h-4" />
               Filters
@@ -81,26 +81,26 @@ export default function ShopPage() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="appearance-none px-4 py-2.5 pr-10 text-sm bg-white border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-honey-500/20 focus:border-honey-500 cursor-pointer"
+                className="appearance-none px-4 py-2.5 pr-10 text-sm bg-white border border-dark-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/20 focus:border-primary-400 cursor-pointer"
               >
                 {sortOptions.map(option => (
                   <option key={option.id} value={option.id}>{option.name}</option>
                 ))}
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none" />
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-400 pointer-events-none" />
             </div>
 
             {/* View Mode */}
-            <div className="flex items-center bg-white border border-neutral-200 rounded-xl overflow-hidden">
+            <div className="flex items-center bg-white border border-dark-200 rounded-xl overflow-hidden">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`p-2.5 transition-colors ${viewMode === 'grid' ? 'bg-honey-100 text-honey-600' : 'text-neutral-400 hover:text-neutral-600'}`}
+                className={`p-2.5 transition-colors ${viewMode === 'grid' ? 'bg-primary-100 text-primary-500' : 'text-dark-400 hover:text-dark-600'}`}
               >
                 <Grid className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setViewMode('list')}
-                className={`p-2.5 transition-colors ${viewMode === 'list' ? 'bg-honey-100 text-honey-600' : 'text-neutral-400 hover:text-neutral-600'}`}
+                className={`p-2.5 transition-colors ${viewMode === 'list' ? 'bg-primary-100 text-primary-500' : 'text-dark-400 hover:text-dark-600'}`}
               >
                 <List className="w-4 h-4" />
               </button>
@@ -116,8 +116,8 @@ export default function ShopPage() {
               onClick={() => setActiveCategory(category.id)}
               className={`px-4 py-2 text-sm rounded-full transition-colors ${
                 activeCategory === category.id
-                  ? 'bg-neutral-900 text-white'
-                  : 'bg-white text-neutral-600 hover:bg-neutral-100'
+                  ? 'bg-dark-800 text-white'
+                  : 'bg-white text-dark-600 hover:bg-primary-50'
               }`}
             >
               {category.name}
@@ -138,29 +138,29 @@ export default function ShopPage() {
               <div className={`group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all ${
                 viewMode === 'list' ? 'flex items-center gap-4' : ''
               }`}>
-                <div className={`relative bg-honey-50 flex items-center justify-center ${
+                <div className={`relative bg-primary-50 flex items-center justify-center ${
                   viewMode === 'grid' ? 'aspect-square' : 'w-32 h-32 flex-shrink-0'
                 }`}>
                   <span className="text-5xl">{product.image}</span>
                   {product.isNew && (
-                    <span className="absolute top-2 left-2 px-2 py-0.5 text-xs font-medium bg-green-500 text-white rounded-full">
+                    <span className="absolute top-2 left-2 px-2 py-0.5 text-xs font-medium bg-accent2-500 text-white rounded-full">
                       NEW
                     </span>
                   )}
                   {product.featured && (
-                    <span className="absolute top-2 left-2 px-2 py-0.5 text-xs font-medium bg-honey-500 text-white rounded-full">
+                    <span className="absolute top-2 left-2 px-2 py-0.5 text-xs font-medium bg-primary-400 text-dark-800 rounded-full">
                       FEATURED
                     </span>
                   )}
                 </div>
                 <div className={`p-4 ${viewMode === 'list' ? 'flex-1' : ''}`}>
-                  <h3 className="font-medium text-neutral-900 text-sm mb-1 group-hover:text-honey-600 transition-colors">
+                  <h3 className="font-medium text-dark-800 text-sm mb-1 group-hover:text-primary-500 transition-colors">
                     {product.name}
                   </h3>
-                  <p className="text-lg font-bold text-neutral-900">
+                  <p className="text-lg font-bold text-dark-800">
                     €{product.price.toFixed(2)}
                   </p>
-                  <button className="mt-3 w-full py-2 text-sm font-medium bg-neutral-900 text-white rounded-lg hover:bg-neutral-800 transition-colors">
+                  <button className="mt-3 w-full py-2 text-sm font-medium bg-dark-800 text-white rounded-lg hover:bg-dark-700 transition-colors">
                     Add to Cart
                   </button>
                 </div>
@@ -173,14 +173,14 @@ export default function ShopPage() {
         {filteredProducts.length === 0 && (
           <div className="text-center py-16">
             <p className="text-5xl mb-4">💢</p>
-            <h3 className="text-lg font-semibold text-neutral-900 mb-2">No Products Found</h3>
-            <p className="text-neutral-600">Try adjusting your filters or search terms</p>
+            <h3 className="text-lg font-semibold text-dark-800 mb-2">No Products Found</h3>
+            <p className="text-dark-500">Try adjusting your filters or search terms</p>
           </div>
         )}
 
         {/* Pagination */}
         <FadeIn delay={0.3} className="flex items-center justify-center gap-2 mt-12">
-          <button className="px-4 py-2 text-sm bg-white border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors">
+          <button className="px-4 py-2 text-sm bg-white border border-dark-200 rounded-lg hover:bg-primary-50 transition-colors">
             Previous
           </button>
           {[1, 2, 3].map(page => (
@@ -188,14 +188,14 @@ export default function ShopPage() {
               key={page}
               className={`w-10 h-10 text-sm rounded-lg transition-colors ${
                 page === 1 
-                  ? 'bg-neutral-900 text-white' 
-                  : 'bg-white border border-neutral-200 hover:bg-neutral-50'
+                  ? 'bg-dark-800 text-white' 
+                  : 'bg-white border border-dark-200 hover:bg-primary-50'
               }`}
             >
               {page}
             </button>
           ))}
-          <button className="px-4 py-2 text-sm bg-white border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors">
+          <button className="px-4 py-2 text-sm bg-white border border-dark-200 rounded-lg hover:bg-primary-50 transition-colors">
             Next
           </button>
         </FadeIn>
