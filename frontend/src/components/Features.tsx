@@ -41,10 +41,10 @@ export default function Features() {
       <section className="relative py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <FadeIn className="text-center mb-10">
-            <h2 className="text-2xl lg:text-3xl font-bold text-neutral-900 mb-3">
+            <h2 className="text-2xl lg:text-3xl font-bold text-dark-800 mb-3">
               Why Choose Us
             </h2>
-            <p className="text-sm text-neutral-600 max-w-xl mx-auto">
+            <p className="text-sm text-dark-400 max-w-xl mx-auto">
               We&apos;re committed to providing the best experience for anime collectors worldwide.
             </p>
           </FadeIn>
@@ -52,14 +52,14 @@ export default function Features() {
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {features.map((feature, index) => (
               <StaggerItem key={index}>
-                <div className="group p-5 bg-cream rounded-xl hover:bg-honey-50 transition-all duration-300 hover:shadow-lg h-full">
-                  <div className="w-12 h-12 mb-4 rounded-lg bg-honey-100 group-hover:bg-honey-200 flex items-center justify-center transition-colors">
-                    <feature.icon className="w-6 h-6 text-honey-600" />
+                <div className="group p-5 bg-cream rounded-xl hover:bg-primary-50 transition-all duration-300 hover:shadow-lg h-full">
+                  <div className="w-12 h-12 mb-4 rounded-lg bg-primary-100 group-hover:bg-primary-200 flex items-center justify-center transition-colors">
+                    <feature.icon className="w-6 h-6 text-primary-500" />
                   </div>
-                  <h3 className="font-semibold text-base text-neutral-900 mb-1.5">
+                  <h3 className="font-semibold text-base text-dark-800 mb-1.5">
                     {feature.title}
                   </h3>
-                  <p className="text-xs text-neutral-600 leading-relaxed">
+                  <p className="text-xs text-dark-400 leading-relaxed">
                     {feature.description}
                   </p>
                 </div>
@@ -74,16 +74,16 @@ export default function Features() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <FadeIn className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-10">
             <div>
-              <h2 className="text-2xl lg:text-3xl font-bold text-neutral-900 mb-2">
+              <h2 className="text-2xl lg:text-3xl font-bold text-dark-800 mb-2">
                 Browse Categories
               </h2>
-              <p className="text-sm text-neutral-600 max-w-lg">
+              <p className="text-sm text-dark-400 max-w-lg">
                 Explore our wide range of collectibles from your favorite anime series and games.
               </p>
             </div>
             <Link 
               href="/shop" 
-              className="px-5 py-2.5 bg-neutral-900 text-white text-sm rounded-full font-medium hover:bg-neutral-800 transition-colors"
+              className="px-5 py-2.5 bg-dark-800 text-white text-sm rounded-full font-medium hover:bg-dark-700 transition-colors"
             >
               View All Products
             </Link>
@@ -100,8 +100,8 @@ export default function Features() {
                     {category.emoji}
                   </div>
                   <div className="relative">
-                    <span className="text-xs text-honey-600 font-medium">{category.count}</span>
-                    <h3 className="text-base font-semibold text-neutral-900 mt-0.5 group-hover:text-honey-600 transition-colors">
+                    <span className="text-xs text-primary-500 font-medium">{category.count}</span>
+                    <h3 className="text-base font-semibold text-dark-800 mt-0.5 group-hover:text-primary-500 transition-colors">
                       {category.name}
                     </h3>
                   </div>
@@ -116,23 +116,23 @@ export default function Features() {
       <FadeIn>
         <section className="relative py-16">
           <div className="max-w-6xl mx-auto px-6 lg:px-8">
-            <div className="relative overflow-hidden bg-gradient-to-r from-neutral-900 to-neutral-800 rounded-2xl p-6 lg:p-12">
+            <div className="relative overflow-hidden bg-gradient-dark rounded-2xl p-6 lg:p-12">
               {/* Background Pattern */}
               <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-0 right-0 w-72 h-72 bg-honey-500 rounded-full blur-3xl" />
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-honey-400 rounded-full blur-3xl" />
+                <div className="absolute top-0 right-0 w-72 h-72 bg-primary-400 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent2-400 rounded-full blur-3xl" />
               </div>
 
               <div className="relative text-center max-w-xl mx-auto">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-honey-500/20 rounded-full mb-4">
-                  <Zap className="w-3.5 h-3.5 text-honey-400" />
-                  <span className="text-xs font-medium text-honey-400">Limited Time Offer</span>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent-400/20 rounded-full mb-4">
+                  <Zap className="w-3.5 h-3.5 text-accent-400" />
+                  <span className="text-xs font-medium text-accent-300">Limited Time Offer</span>
                 </div>
                 
                 <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3">
                   Get 10% Off Your First Order
                 </h2>
-                <p className="text-sm text-neutral-400 mb-6">
+                <p className="text-sm text-dark-300 mb-6">
                   Sign up now and receive exclusive deals, early access to new arrivals, and special discounts.
                 </p>
                 
@@ -140,9 +140,9 @@ export default function Features() {
                   <input
                     type="email"
                     placeholder="Enter your email"
-                    className="flex-1 px-4 py-2.5 text-sm bg-white/10 border border-white/20 rounded-full text-white placeholder-neutral-400 focus:outline-none focus:border-honey-500"
+                    className="flex-1 px-4 py-2.5 text-sm bg-white/10 border border-white/20 rounded-full text-white placeholder-dark-300 focus:outline-none focus:border-primary-400"
                   />
-                  <button className="px-5 py-2.5 text-sm bg-honey-500 text-white rounded-full font-medium hover:bg-honey-600 transition-colors">
+                  <button className="px-5 py-2.5 text-sm bg-primary-400 text-dark-800 rounded-full font-semibold hover:bg-primary-300 transition-colors">
                     Subscribe
                   </button>
                 </div>
