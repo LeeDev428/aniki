@@ -41,7 +41,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-neutral-900 text-white">
+    <footer className="bg-dark-800 text-white">
       {/* Main Footer */}
       <div className="max-w-6xl mx-auto px-6 lg:px-8 py-12">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 lg:gap-10">
@@ -57,13 +57,13 @@ export default function Footer() {
                 />
               </div>
             </Link>
-            <p className="text-neutral-400 text-xs leading-relaxed mb-4 max-w-xs">
+            <p className="text-dark-300 text-xs leading-relaxed mb-4 max-w-xs">
               Your ultimate destination for premium anime figures and collectibles. 
               100% authentic products from top brands worldwide.
             </p>
             
             {/* Contact Info */}
-            <div className="space-y-3 text-sm text-neutral-400">
+            <div className="space-y-3 text-sm text-dark-300">
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4" />
                 <span>www.tiktok.com/@anikiofficial.nl</span>
@@ -85,7 +85,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {footerLinks.shop.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-neutral-400 hover:text-honey-400 transition-colors">
+                  <Link href={link.href} className="text-sm text-dark-300 hover:text-primary-400 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -99,7 +99,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {footerLinks.categories.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-neutral-400 hover:text-honey-400 transition-colors">
+                  <Link href={link.href} className="text-sm text-dark-300 hover:text-primary-400 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -113,7 +113,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-neutral-400 hover:text-honey-400 transition-colors">
+                  <Link href={link.href} className="text-sm text-dark-300 hover:text-primary-400 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -127,7 +127,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-neutral-400 hover:text-honey-400 transition-colors">
+                  <Link href={link.href} className="text-sm text-dark-300 hover:text-primary-400 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -138,11 +138,11 @@ export default function Footer() {
       </div>
 
       {/* Bottom Footer */}
-      <div className="border-t border-neutral-800">
+      <div className="border-t border-dark-700">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Copyright */}
-            <p className="text-sm text-neutral-500">
+            <p className="text-sm text-dark-400">
               © {new Date().getFullYear()} Aniki. All rights reserved.
             </p>
 
@@ -153,7 +153,7 @@ export default function Footer() {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center hover:bg-honey-500 transition-colors"
+                  className="w-10 h-10 rounded-full bg-dark-700 flex items-center justify-center hover:bg-primary-400 hover:text-dark-800 transition-colors"
                 >
                   <social.icon className="w-4 h-4" />
                 </a>
@@ -161,11 +161,11 @@ export default function Footer() {
             </div>
 
             {/* Legal Links */}
-            <div className="flex items-center gap-6 text-sm text-neutral-500">
-              <Link href="/privacy" className="hover:text-honey-400 transition-colors">
+            <div className="flex items-center gap-6 text-sm text-dark-400">
+              <Link href="/privacy" className="hover:text-primary-400 transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="hover:text-honey-400 transition-colors">
+              <Link href="/terms" className="hover:text-primary-400 transition-colors">
                 Terms of Service
               </Link>
             </div>
