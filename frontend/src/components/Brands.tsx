@@ -13,13 +13,13 @@ const brands = [
 
 export default function Brands() {
   return (
-    <section className="relative py-12 bg-white border-t border-neutral-100">
+    <section className="relative py-12 bg-white border-t border-primary-100">
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <FadeIn className="text-center mb-8">
-          <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1.5">
+          <p className="text-xs text-dark-400 uppercase tracking-wider mb-1.5">
             Trusted By
           </p>
-          <h2 className="text-xl font-semibold text-neutral-900">
+          <h2 className="text-xl font-semibold text-dark-800">
             Official Brand Partners
           </h2>
         </FadeIn>
@@ -28,12 +28,12 @@ export default function Brands() {
           {brands.map((brand, index) => (
             <StaggerItem key={index} direction="up">
               <div className="group flex items-center gap-2 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
-                <div className="w-9 h-9 rounded-lg bg-neutral-100 group-hover:bg-honey-100 flex items-center justify-center transition-colors">
-                  <span className="font-bold text-sm text-neutral-600 group-hover:text-honey-600 transition-colors">
+                <div className="w-9 h-9 rounded-lg bg-dark-100 group-hover:bg-primary-100 flex items-center justify-center transition-colors">
+                  <span className="font-bold text-sm text-dark-600 group-hover:text-primary-500 transition-colors">
                     {brand.initial}
                   </span>
                 </div>
-                <span className="text-xs font-medium text-neutral-700 hidden sm:inline">
+                <span className="text-xs font-medium text-dark-700 hidden sm:inline">
                   {brand.name}
                 </span>
               </div>
