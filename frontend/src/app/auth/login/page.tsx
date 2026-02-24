@@ -141,19 +141,22 @@ export default function LoginPage() {
         </motion.div>
       </div>
 
-      {/* Right Side - Image */}
-      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-primary-400 to-primary-500 items-center justify-center p-12">
+      {/* Right Side - Decorative */}
+      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-pink-500 to-peach-500 items-center justify-center p-12 relative overflow-hidden">
+        {/* Decorative blobs */}
+        <div className="absolute top-10 right-10 w-48 h-48 bg-white/10 rounded-full blur-2xl" />
+        <div className="absolute bottom-10 left-10 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-center text-white"
+          className="text-center text-white relative z-10"
         >
-          <div className="w-40 h-40 mx-auto mb-6 bg-white/20 rounded-3xl flex items-center justify-center backdrop-blur-sm">
-            <Shield className="w-20 h-20 text-white/90" />
+          <div className="w-40 h-40 mx-auto mb-6 bg-white/20 rounded-3xl flex items-center justify-center backdrop-blur-sm border border-white/30">
+            <Shield className="w-20 h-20 text-white" />
           </div>
-          <h2 className="text-xl font-bold mb-2">Start Collecting</h2>
-          <p className="text-primary-100 text-sm max-w-sm">
+          <h2 className="text-2xl font-bold mb-3 font-display">Start Collecting</h2>
+          <p className="text-white/80 text-sm max-w-xs leading-relaxed">
             Access your wishlist, track orders, and discover exclusive deals.
           </p>
         </motion.div>
