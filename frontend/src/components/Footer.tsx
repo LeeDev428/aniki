@@ -149,7 +149,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Copyright */}
             <p className="text-sm text-charcoal-400 flex items-center gap-1">
-              © {new Date().getFullYear()} Aniki. Made with <Heart className="w-4 h-4 text-pink-500 fill-pink-500" /> for collectors.
+              © {new Date().getFullYear()} Aniki. All rights reserved.
             </p>
 
             {/* Social Links */}
