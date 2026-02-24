@@ -130,7 +130,7 @@ export default function Hero() {
   )
 
   return (
-    <section className="relative h-screen max-h-[780px] min-h-[640px] flex items-center pt-16 overflow-hidden">
+    <section className="relative lg:h-screen lg:max-h-[780px] lg:min-h-[640px] flex items-center pt-20 pb-10 lg:pt-16 lg:pb-0 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-cream via-pink-50/60 to-peach-50/40" />
       <div className="absolute inset-0 bg-gradient-mesh" />
@@ -239,14 +239,15 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* 3-card grid */}
-              <div className="grid grid-cols-3 gap-3">
+              {/* 3-card grid — 1 col on mobile, 3 col on sm+ */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {visibleCards.map((card, i) => (
                   <motion.div
-                    key={`${card.id}-${startIdx}`}
+                    key={`${card.id}-${startIdx}-${i}`}
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: i * 0.07 }}
+                    className={i > 0 ? 'hidden sm:block' : ''}
                   >
                     <Link href={`/product/${card.id}`} className="group block">
                       {/* Card image */}
