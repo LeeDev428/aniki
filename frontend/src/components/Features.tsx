@@ -1,68 +1,85 @@
 'use client'
 
-import { Truck, ShieldCheck, Headphones, RotateCcw, Zap } from 'lucide-react'
+import { Truck, ShieldCheck, Headphones, RotateCcw, Sparkles, Heart, Star, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { FadeIn, StaggerContainer, StaggerItem } from './animations'
 
 const features = [
   {
-    icon: Truck,
-    title: 'Free Shipping',
-    description: 'Free worldwide shipping on all orders over $50'
-  },
-  {
     icon: ShieldCheck,
     title: '100% Authentic',
-    description: 'All products are officially licensed and verified'
+    description: 'All products are officially licensed and verified',
+    color: 'pink'
   },
   {
-    icon: Headphones,
-    title: '24/7 Support',
-    description: 'Get help anytime with our dedicated support team'
+    icon: Truck,
+    title: 'Free Shipping',
+    description: 'Free worldwide shipping on orders over $50',
+    color: 'peach'
+  },
+  {
+    icon: Heart,
+    title: 'Collector Community',
+    description: 'Join 10K+ happy collectors worldwide',
+    color: 'pink'
   },
   {
     icon: RotateCcw,
     title: 'Easy Returns',
-    description: '30-day hassle-free return policy guaranteed'
+    description: '30-day hassle-free return policy',
+    color: 'peach'
   }
 ]
 
 const categories = [
-  { name: 'Anime Figures', count: '250+', emoji: '🎭' },
-  { name: 'Funko Pop', count: '150+', emoji: '🎪' },
-  { name: 'Model Kits', count: '80+', emoji: '🔧' },
-  { name: 'Accessories', count: '100+', emoji: '✨' },
+  { name: 'Anime Figures', count: '250+', emoji: '🎭', gradient: 'from-pink-500 to-pink-400' },
+  { name: 'Funko Pop', count: '150+', emoji: '🎪', gradient: 'from-peach-500 to-peach-400' },
+  { name: 'Model Kits', count: '80+', emoji: '🔧', gradient: 'from-pink-400 to-peach-400' },
+  { name: 'Accessories', count: '100+', emoji: '✨', gradient: 'from-peach-400 to-pink-400' },
 ]
 
 export default function Features() {
   return (
     <>
-      {/* Features Section */}
-      <section className="relative py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <FadeIn className="text-center mb-10">
-            <h2 className="text-2xl lg:text-3xl font-bold text-dark-800 mb-3">
+      {/* Why Choose Aniki Section */}
+      <section className="relative py-20 bg-white overflow-hidden">
+        {/* Decorative background */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-soft-pink rounded-full blur-3xl opacity-50" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-soft-peach rounded-full blur-3xl opacity-40" />
+        
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+          <FadeIn className="text-center mb-14">
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-soft-pink rounded-full text-pink-500 text-sm font-semibold mb-4">
+              <Sparkles className="w-4 h-4" />
               Why Choose Us
+            </span>
+            <h2 className="text-3xl lg:text-4xl font-bold text-charcoal font-display mb-4">
+              Why Choose <span className="text-gradient">Aniki</span>
             </h2>
-            <p className="text-sm text-dark-400 max-w-xl mx-auto">
+            <p className="text-charcoal-500 max-w-xl mx-auto">
               We&apos;re committed to providing the best experience for anime collectors worldwide.
             </p>
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
               <StaggerItem key={index}>
-                <div className="group p-5 bg-cream rounded-xl hover:bg-primary-50 transition-all duration-300 hover:shadow-lg h-full">
-                  <div className="w-12 h-12 mb-4 rounded-lg bg-primary-100 group-hover:bg-primary-200 flex items-center justify-center transition-colors">
-                    <feature.icon className="w-6 h-6 text-primary-500" />
+                <motion.div 
+                  whileHover={{ y: -5 }}
+                  className={`group p-6 bg-white rounded-2xl border border-${feature.color === 'pink' ? 'pink' : 'peach'}-100 hover:border-${feature.color === 'pink' ? 'pink' : 'peach'}-200 shadow-soft hover:shadow-card transition-all duration-300 h-full`}
+                >
+                  <div className={`w-14 h-14 mb-5 rounded-2xl ${feature.color === 'pink' ? 'bg-soft-pink' : 'bg-soft-peach'} flex items-center justify-center`}>
+                    <feature.icon className={`w-7 h-7 ${feature.color === 'pink' ? 'text-pink-500' : 'text-peach-500'}`} />
                   </div>
-                  <h3 className="font-semibold text-base text-dark-800 mb-1.5">
+                  <h3 className="font-bold text-lg text-charcoal mb-2 font-display">
                     {feature.title}
                   </h3>
-                  <p className="text-xs text-dark-400 leading-relaxed">
+                  <p className="text-sm text-charcoal-500 leading-relaxed">
                     {feature.description}
                   </p>
-                </div>
+                </motion.div>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -70,40 +87,55 @@ export default function Features() {
       </section>
 
       {/* Categories Section */}
-      <section className="relative py-16 bg-cream">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <FadeIn className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-10">
+      <section className="relative py-20 bg-gradient-to-b from-cream to-soft-pink/20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <FadeIn className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-12">
             <div>
-              <h2 className="text-2xl lg:text-3xl font-bold text-dark-800 mb-2">
-                Browse Categories
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-soft-peach rounded-full text-peach-500 text-sm font-semibold mb-4">
+                <Star className="w-4 h-4" />
+                Shop by Category
+              </span>
+              <h2 className="text-3xl lg:text-4xl font-bold text-charcoal font-display mb-2">
+                Browse <span className="text-gradient">Categories</span>
               </h2>
-              <p className="text-sm text-dark-400 max-w-lg">
+              <p className="text-charcoal-500 max-w-lg">
                 Explore our wide range of collectibles from your favorite anime series and games.
               </p>
             </div>
             <Link 
               href="/shop" 
-              className="px-5 py-2.5 bg-dark-800 text-white text-sm rounded-full font-medium hover:bg-dark-700 transition-colors"
+              className="group flex items-center gap-2 px-6 py-3 bg-charcoal text-white text-sm rounded-full font-semibold hover:bg-charcoal-700 transition-all"
             >
               View All Products
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+          <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
             {categories.map((category, index) => (
               <StaggerItem key={index}>
                 <Link
                   href={`/shop?category=${category.name.toLowerCase().replace(' ', '-')}`}
-                  className="group relative p-5 lg:p-6 bg-white rounded-xl hover:shadow-lg transition-all duration-300 overflow-hidden block"
+                  className="group relative bg-white rounded-3xl overflow-hidden block shadow-soft hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
                 >
-                  <div className="absolute top-3 right-3 text-3xl opacity-20 group-hover:opacity-40 transition-opacity">
-                    {category.emoji}
-                  </div>
-                  <div className="relative">
-                    <span className="text-xs text-primary-500 font-medium">{category.count}</span>
-                    <h3 className="text-base font-semibold text-dark-800 mt-0.5 group-hover:text-primary-500 transition-colors">
-                      {category.name}
-                    </h3>
+                  {/* Gradient top border */}
+                  <div className={`h-1.5 w-full bg-gradient-to-r ${category.gradient}`} />
+                  
+                  <div className="p-6 lg:p-8">
+                    <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                      {category.emoji}
+                    </div>
+                    <div className="relative">
+                      <span className="text-sm text-pink-500 font-semibold">{category.count}</span>
+                      <h3 className="text-lg font-bold text-charcoal mt-1 group-hover:text-pink-500 transition-colors font-display">
+                        {category.name}
+                      </h3>
+                    </div>
+                    
+                    {/* Arrow indicator */}
+                    <div className="absolute bottom-6 right-6 w-8 h-8 rounded-full bg-soft-pink flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ArrowRight className="w-4 h-4 text-pink-500" />
+                    </div>
                   </div>
                 </Link>
               </StaggerItem>
@@ -112,37 +144,53 @@ export default function Features() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Limited Drop Banner */}
       <FadeIn>
         <section className="relative py-16">
-          <div className="max-w-6xl mx-auto px-6 lg:px-8">
-            <div className="relative overflow-hidden bg-gradient-dark rounded-2xl p-6 lg:p-12">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="relative overflow-hidden bg-gradient-to-r from-pink-500 via-pink-400 to-peach-500 rounded-3xl">
               {/* Background Pattern */}
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-0 right-0 w-72 h-72 bg-primary-400 rounded-full blur-3xl" />
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent2-400 rounded-full blur-3xl" />
+              <div className="absolute inset-0 opacity-20">
+                <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl" />
               </div>
+              
+              {/* Floating icons */}
+              <motion.div
+                animate={{ y: [-5, 5, -5] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="absolute top-6 right-10 text-4xl opacity-80"
+              >
+                🔥
+              </motion.div>
+              <motion.div
+                animate={{ y: [5, -5, 5] }}
+                transition={{ duration: 2.5, repeat: Infinity }}
+                className="absolute bottom-6 left-10 text-3xl opacity-80"
+              >
+                ✨
+              </motion.div>
 
-              <div className="relative text-center max-w-xl mx-auto">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent-400/20 rounded-full mb-4">
-                  <Zap className="w-3.5 h-3.5 text-accent-400" />
-                  <span className="text-xs font-medium text-accent-300">Limited Time Offer</span>
+              <div className="relative px-8 py-12 lg:px-16 lg:py-16 flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div className="text-center lg:text-left">
+                  <span className="inline-block px-4 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-semibold mb-4">
+                    ⏱️ Limited Time Only
+                  </span>
+                  <h2 className="text-3xl lg:text-4xl font-bold text-white mb-3 font-display">
+                    Get 10% Off Your First Order
+                  </h2>
+                  <p className="text-white/90 max-w-md">
+                    Sign up now and receive exclusive deals, early access to new arrivals, and special discounts.
+                  </p>
                 </div>
                 
-                <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3">
-                  Get 10% Off Your First Order
-                </h2>
-                <p className="text-sm text-dark-300 mb-6">
-                  Sign up now and receive exclusive deals, early access to new arrivals, and special discounts.
-                </p>
-                
-                <div className="flex flex-col sm:flex-row gap-2 justify-center max-w-sm mx-auto">
+                <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto max-w-md">
                   <input
                     type="email"
                     placeholder="Enter your email"
-                    className="flex-1 px-4 py-2.5 text-sm bg-white/10 border border-white/20 rounded-full text-white placeholder-dark-300 focus:outline-none focus:border-primary-400"
+                    className="flex-1 px-5 py-3.5 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white placeholder-white/70 focus:outline-none focus:border-white focus:bg-white/30 transition-all"
                   />
-                  <button className="px-5 py-2.5 text-sm bg-primary-400 text-dark-800 rounded-full font-semibold hover:bg-primary-300 transition-colors">
+                  <button className="px-8 py-3.5 bg-white text-pink-500 rounded-full font-bold hover:bg-cream hover:shadow-lg transition-all whitespace-nowrap">
                     Subscribe
                   </button>
                 </div>
