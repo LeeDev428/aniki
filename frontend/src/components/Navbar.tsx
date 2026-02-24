@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, X, ShoppingBag, Heart, Search, User } from 'lucide-react'
+import { Menu, X, Heart, User } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -15,7 +15,6 @@ const navLinks = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const cartCount = 3 // Replace with actual cart state
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-soft">
@@ -50,32 +49,7 @@ export default function Navbar() {
 
           {/* Right Section - Icons & Auth */}
           <div className="hidden md:flex items-center gap-4">
-            {/* Search */}
-            <button className="p-2 rounded-full hover:bg-soft-pink transition-colors group">
-              <Search className="w-5 h-5 text-charcoal-500 group-hover:text-pink-500 transition-colors" />
-            </button>
-
-            {/* Wishlist */}
-            <Link href="/wishlist" className="p-2 rounded-full hover:bg-soft-pink transition-colors group relative">
-              <Heart className="w-5 h-5 text-charcoal-500 group-hover:text-pink-500 transition-colors" />
-            </Link>
-
-            {/* Cart */}
-            <Link href="/cart" className="p-2 rounded-full hover:bg-soft-peach transition-colors group relative">
-              <ShoppingBag className="w-5 h-5 text-charcoal-500 group-hover:text-peach-500 transition-colors" />
-              {cartCount > 0 && (
-                <motion.span 
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute -top-1 -right-1 w-5 h-5 bg-peach-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center"
-                >
-                  {cartCount}
-                </motion.span>
-              )}
-            </Link>
-
-            {/* Divider */}
-            <div className="w-px h-6 bg-pink-100 mx-2" />
+ 
 
             {/* Auth */}
             <Link
@@ -95,15 +69,6 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-3">
-            {/* Mobile Cart */}
-            <Link href="/cart" className="p-2 relative">
-              <ShoppingBag className="w-5 h-5 text-charcoal-600" />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-peach-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
             
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
