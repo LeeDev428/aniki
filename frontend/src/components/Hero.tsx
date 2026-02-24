@@ -151,7 +151,7 @@ export default function Hero() {
             </StaggerItem>
 
             <StaggerItem>
-              <h1 className="text-4xl xl:text-5xl font-bold text-charcoal leading-[1.1] tracking-tight font-display">
+              <h1 className="text-3xl sm:text-4xl xl:text-5xl font-bold text-charcoal leading-[1.1] tracking-tight font-display">
                 Where Every
                 <br />
                 <span className="text-pink-500">Collector</span> Finds
@@ -222,7 +222,7 @@ export default function Hero() {
                     href="/shop?sort=hot"
                     className="text-xs text-charcoal-400 hover:text-pink-500 transition-colors mr-2"
                   >
-                    See All Texts →
+                    See All →
                   </Link>
                   <button
                     onClick={prev}
@@ -251,13 +251,13 @@ export default function Hero() {
                   >
                     <Link href={`/product/${card.id}`} className="group block">
                       {/* Card image */}
-                      <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-soft-pink to-soft-peach aspect-[3/4] mb-2">
+                      <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-soft-pink to-soft-peach aspect-[3/4] sm:aspect-[3/4] mb-2">
                         <Image
                           src={card.image}
                           alt={card.name}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          sizes="(max-width: 768px) 33vw, 200px"
+                          sizes="(max-width: 640px) 80vw, 200px"
                         />
                         {/* Discount badge */}
                         <span className={`absolute top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-bold text-white ${card.badgeColor}`}>
