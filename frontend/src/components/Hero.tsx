@@ -1,9 +1,9 @@
 'use client'
 
-import { ArrowRight, ChevronLeft, ChevronRight, Flame, ShoppingCart } from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight, Flame } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { FadeIn, StaggerContainer, StaggerItem } from './animations'
 
@@ -319,12 +319,6 @@ export default function Hero() {
                 ))}
               </div>
             </div>
-          </FadeIn>
-        </div>
-      </div>
-    </section>
-  )
-}
           </FadeIn>
         </div>
       </div>
