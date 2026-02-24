@@ -6,41 +6,41 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { FadeIn, StaggerContainer, StaggerItem } from './animations'
 
-// Sample fan favorites data - replace with actual product data
+// Sample fan favorites data - using real sample images
 const favorites = [
   {
-    id: 1,
+    id: 7,
     name: 'Levi Ackerman',
     series: 'Attack on Titan',
     price: 159.99,
-    image: '/products/levi.jpg',
+    image: '/assets/sample/7.png',
     rating: 4.9,
     reviews: 234,
   },
   {
-    id: 2,
+    id: 6,
     name: 'Rem',
     series: 'Re:Zero',
     price: 129.99,
-    image: '/products/rem.jpg',
+    image: '/assets/sample/6.png',
     rating: 4.8,
     reviews: 189,
   },
   {
-    id: 3,
-    name: 'Naruto Sage Mode',
-    series: 'Naruto Shippuden',
-    price: 199.99,
-    image: '/products/naruto.jpg',
+    id: 1,
+    name: 'Satoru Gojo',
+    series: 'Jujutsu Kaisen',
+    price: 129.99,
+    image: '/assets/sample/1.png',
     rating: 4.9,
     reviews: 312,
   },
   {
-    id: 4,
-    name: 'Miku Hatsune',
+    id: 2,
+    name: 'Hatsune Miku',
     series: 'Vocaloid',
-    price: 89.99,
-    image: '/products/miku.jpg',
+    price: 76.99,
+    image: '/assets/sample/2.png',
     rating: 4.7,
     reviews: 156,
   },
@@ -86,12 +86,13 @@ export default function FanFavorites() {
                 >
                   {/* Image */}
                   <div className="relative aspect-square bg-gradient-to-br from-soft-pink to-soft-peach overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center p-6">
-                      {/* Placeholder - replace with actual image */}
-                      <div className="w-full h-full bg-white/30 rounded-2xl flex items-center justify-center">
-                        <span className="text-5xl">🎭</span>
-                      </div>
-                    </div>
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
                     
                     {/* Rank badge */}
                     <div className="absolute top-3 left-3 w-8 h-8 rounded-full bg-gradient-to-r from-pink-500 to-peach-500 flex items-center justify-center text-white text-sm font-bold shadow-lg">
