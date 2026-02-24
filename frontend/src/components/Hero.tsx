@@ -110,244 +110,221 @@ const hotDrops = [
 ]
 
 export default function Hero() {
-  const [currentSlide, setCurrentSlide] = useState(0)
+  const [startIdx, setStartIdx] = useState(0)
+  const VISIBLE = 3
 
-  // Auto-rotate carousel
+  // Auto-advance
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % hotDrops.length)
-    }, 4000)
+      setStartIdx((prev) => (prev + 1) % hotDrops.length)
+    }, 3500)
     return () => clearInterval(timer)
   }, [])
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % hotDrops.length)
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + hotDrops.length) % hotDrops.length)
+  const next = () => setStartIdx((prev) => (prev + 1) % hotDrops.length)
+  const prev = () => setStartIdx((prev) => (prev - 1 + hotDrops.length) % hotDrops.length)
+
+  // Get 3 visible items with wrapping
+  const visibleCards = Array.from({ length: VISIBLE }, (_, i) =>
+    hotDrops[(startIdx + i) % hotDrops.length]
+  )
 
   return (
-    <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
-      {/* Background - Soft gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cream via-soft-pink/30 to-soft-peach/20" />
-      
-      {/* Mesh gradient overlay */}
+    <section className="relative h-screen max-h-[780px] min-h-[640px] flex items-center pt-16 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-cream via-pink-50/60 to-peach-50/40" />
       <div className="absolute inset-0 bg-gradient-mesh" />
-      
-      {/* Decorative Blobs */}
-      <motion.div 
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.2 }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
-        className="absolute top-1/4 right-1/4 w-72 h-72 bg-pink-300/40 rounded-full blur-3xl" 
-      />
-      <motion.div 
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.15 }}
-        transition={{ duration: 1.5, delay: 0.2, ease: 'easeOut' }}
-        className="absolute bottom-1/3 left-1/5 w-80 h-80 bg-peach-300/30 rounded-full blur-3xl" 
-      />
-      
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Content - Brand Statement */}
-          <StaggerContainer className="text-center lg:text-left">
-            {/* Badge */}
-            <StaggerItem>
-              <motion.div 
-                className="inline-flex items-center gap-2 px-4 py-2 bg-soft-pink rounded-full mb-6"
-                whileHover={{ scale: 1.02 }}
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-pink-500"></span>
-                </span>
-                <span className="text-sm font-medium text-charcoal">
-                  ✨ Premium Anime Collectibles
-                </span>
-              </motion.div>
-            </StaggerItem>
 
-            {/* Main Heading */}
-            <StaggerItem>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-charcoal leading-[1.05] tracking-tight mb-6 font-display">
-                Bring Your
-                <span className="block text-gradient">
-                  Favorite Characters
-                </span>
-                Home
-              </h1>
-            </StaggerItem>
+      {/* Soft decorative blobs */}
+      <div className="absolute top-0 right-1/3 w-96 h-96 bg-pink-200/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-peach-200/20 rounded-full blur-3xl pointer-events-none" />
 
-            {/* Description */}
+      <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid lg:grid-cols-[420px_1fr] gap-8 xl:gap-12 items-center">
+
+          {/* ── LEFT: Brand Statement ── */}
+          <StaggerContainer className="space-y-5">
             <StaggerItem>
-              <p className="text-lg text-charcoal-500 leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8">
-                Discover authentic anime figures, Funko Pops, and premium collectibles 
-                from your favorite series. 100% official, delivered with love.
+              <p className="text-sm font-semibold text-charcoal-500 tracking-wide uppercase">
+                Discover &amp; Collect
               </p>
             </StaggerItem>
 
-            {/* CTA Buttons */}
             <StaggerItem>
-              <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+              <h1 className="text-4xl xl:text-5xl font-bold text-charcoal leading-[1.1] tracking-tight font-display">
+                Where Every
+                <br />
+                <span className="text-pink-500">Collector</span> Finds
+                <br />
+                Their{' '}
+                <span className="text-peach-500">Hero</span>
+              </h1>
+            </StaggerItem>
+
+            <StaggerItem>
+              <p className="text-sm text-charcoal-500 leading-relaxed max-w-sm">
+                Discover authentic and exclusive anime figures from your
+                favorite series. 100% official, premium quality guaranteed.
+              </p>
+            </StaggerItem>
+
+            <StaggerItem>
+              <div className="flex items-center gap-3 pt-1">
                 <Link
                   href="/shop"
-                  className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-peach-500 text-white rounded-full text-base font-semibold hover:shadow-lg hover:shadow-pink-300/40 transition-all duration-300 hover:-translate-y-0.5"
+                  className="group flex items-center gap-2 px-7 py-3 bg-pink-500 text-white rounded-full text-sm font-semibold hover:bg-pink-600 hover:shadow-lg hover:shadow-pink-200/60 transition-all duration-300"
                 >
-                  Shop Collection
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  Explore Collection
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <Link 
+                <Link
                   href="/new-arrivals"
-                  className="flex items-center gap-2 px-6 py-4 bg-white/80 backdrop-blur-sm text-charcoal rounded-full text-base font-medium hover:bg-white transition-all border border-pink-100 hover:border-pink-200"
+                  className="flex items-center gap-2 px-5 py-3 bg-white text-charcoal rounded-full text-sm font-medium border border-pink-100 hover:border-pink-300 transition-all"
                 >
-                  New Arrivals
+                  <span className="w-5 h-5 rounded-full bg-peach-100 flex items-center justify-center text-xs">🌟</span>
+                  New Drops
                 </Link>
               </div>
             </StaggerItem>
 
-            {/* Trust Badges */}
+            {/* Small stats row */}
             <StaggerItem>
-              <div className="flex flex-wrap items-center gap-6 mt-10 pt-8 border-t border-pink-100 justify-center lg:justify-start">
-                <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 rounded-full bg-soft-pink flex items-center justify-center">
-                    <span className="text-lg">🛡️</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-charcoal">100% Authentic</p>
-                    <p className="text-xs text-charcoal-500">Official licensed</p>
-                  </div>
+              <div className="flex items-center gap-6 pt-3 border-t border-pink-100">
+                <div>
+                  <p className="text-xl font-bold text-charcoal">500+</p>
+                  <p className="text-xs text-charcoal-400">Figures</p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 rounded-full bg-soft-peach flex items-center justify-center">
-                    <span className="text-lg">🚚</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-charcoal">Free Shipping</p>
-                    <p className="text-xs text-charcoal-500">On orders $50+</p>
-                  </div>
+                <div className="w-px h-8 bg-pink-100" />
+                <div>
+                  <p className="text-xl font-bold text-charcoal">20+</p>
+                  <p className="text-xs text-charcoal-400">Brands</p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 rounded-full bg-soft-pink flex items-center justify-center">
-                    <span className="text-lg">⭐</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-charcoal">10K+ Reviews</p>
-                    <p className="text-xs text-charcoal-500">Happy collectors</p>
-                  </div>
+                <div className="w-px h-8 bg-pink-100" />
+                <div>
+                  <p className="text-xl font-bold text-charcoal">10K+</p>
+                  <p className="text-xs text-charcoal-400">Collectors</p>
                 </div>
               </div>
             </StaggerItem>
           </StaggerContainer>
 
-          {/* Right Content - Hot Drops Carousel */}
-          <FadeIn direction="left" delay={0.3} className="relative">
-            <div className="relative">
-              {/* Header */}
-              <div className="flex items-center justify-between mb-6">
+          {/* ── RIGHT: Hot Drops Panel ── */}
+          <FadeIn direction="left" delay={0.25}>
+            <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-5 shadow-card">
+              {/* Panel header */}
+              <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <Flame className="w-5 h-5 text-peach-500" />
-                  <h3 className="text-xl font-bold text-charcoal font-display">Hot Drops</h3>
+                  <span className="text-lg font-bold text-charcoal font-display">Hot Drops</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button 
-                    onClick={prevSlide}
-                    className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-pink-50 transition-colors"
+                  <Link
+                    href="/shop?sort=hot"
+                    className="text-xs text-charcoal-400 hover:text-pink-500 transition-colors mr-2"
                   >
-                    <ChevronLeft className="w-5 h-5 text-charcoal" />
+                    See All Texts →
+                  </Link>
+                  <button
+                    onClick={prev}
+                    className="w-8 h-8 rounded-full bg-white shadow-soft border border-pink-100 flex items-center justify-center hover:bg-pink-50 transition-colors"
+                  >
+                    <ChevronLeft className="w-4 h-4 text-charcoal-600" />
                   </button>
-                  <button 
-                    onClick={nextSlide}
-                    className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-pink-50 transition-colors"
+                  <button
+                    onClick={next}
+                    className="w-8 h-8 rounded-full bg-white shadow-soft border border-pink-100 flex items-center justify-center hover:bg-pink-50 transition-colors"
                   >
-                    <ChevronRight className="w-5 h-5 text-charcoal" />
+                    <ChevronRight className="w-4 h-4 text-charcoal-600" />
                   </button>
                 </div>
               </div>
 
-              {/* Carousel Container */}
-              <div className="relative bg-white rounded-3xl shadow-card p-6 overflow-hidden">
-                <AnimatePresence mode="wait">
+              {/* 3-card grid */}
+              <div className="grid grid-cols-3 gap-3">
+                {visibleCards.map((card, i) => (
                   <motion.div
-                    key={currentSlide}
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -50 }}
-                    transition={{ duration: 0.3 }}
-                    className="relative"
+                    key={`${card.id}-${startIdx}`}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: i * 0.07 }}
                   >
-                    {/* Product Image */}
-                    <div className="relative aspect-square rounded-2xl bg-gradient-to-br from-soft-pink to-soft-peach overflow-hidden mb-4">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        {/* Placeholder - Replace with actual image */}
-                        <div className="text-center">
-                          <div className="w-48 h-64 mx-auto bg-white/50 rounded-2xl flex items-center justify-center">
-                            <span className="text-6xl">🎭</span>
-                          </div>
+                    <Link href={`/product/${card.id}`} className="group block">
+                      {/* Card image */}
+                      <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-soft-pink to-soft-peach aspect-[3/4] mb-2">
+                        <Image
+                          src={card.image}
+                          alt={card.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          sizes="(max-width: 768px) 33vw, 200px"
+                        />
+                        {/* Discount badge */}
+                        <span className={`absolute top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-bold text-white ${card.badgeColor}`}>
+                          {card.badge}
+                        </span>
+                        {/* Tag chip */}
+                        <div className="absolute bottom-2 left-2 flex items-center gap-1 px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded-full">
+                          <span className="w-1.5 h-1.5 rounded-full bg-pink-500" />
+                          <span className="text-[9px] font-semibold text-charcoal truncate max-w-[60px]">
+                            {card.tag}
+                          </span>
                         </div>
                       </div>
-                      
-                      {/* Badge */}
-                      <div className={`absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-bold text-white ${
-                        hotDrops[currentSlide].badge === 'Hot' ? 'bg-peach-500' :
-                        hotDrops[currentSlide].badge === 'New' ? 'bg-pink-500' :
-                        'bg-charcoal'
-                      }`}>
-                        {hotDrops[currentSlide].badge}
+
+                      {/* Card info */}
+                      <div className="px-0.5">
+                        <p className="text-sm font-bold text-charcoal font-display leading-tight truncate group-hover:text-pink-500 transition-colors">
+                          {card.name}
+                        </p>
+                        <p className="text-xs text-charcoal-400 truncate mt-0.5">{card.series}</p>
+
+                        <div className="flex items-center justify-between mt-2">
+                          <div>
+                            <span className="text-sm font-bold text-pink-500">
+                              €{card.price.toFixed(2)}
+                            </span>
+                            {card.comparePrice && (
+                              <span className="text-[10px] text-charcoal-400 line-through ml-1">
+                                €{card.comparePrice.toFixed(2)}
+                              </span>
+                            )}
+                          </div>
+                          {/* Shop Now button – shown on hover */}
+                          <motion.button
+                            whileTap={{ scale: 0.93 }}
+                            className="flex items-center gap-1 px-3 py-1.5 bg-pink-500 text-white rounded-full text-[10px] font-bold hover:bg-pink-600 transition-colors opacity-0 group-hover:opacity-100"
+                          >
+                            Shop
+                            <ArrowRight className="w-3 h-3" />
+                          </motion.button>
+                        </div>
                       </div>
-                    </div>
-
-                    {/* Product Info */}
-                    <div className="text-center">
-                      <p className="text-sm text-pink-500 font-medium mb-1">
-                        {hotDrops[currentSlide].series}
-                      </p>
-                      <h4 className="text-xl font-bold text-charcoal font-display mb-2">
-                        {hotDrops[currentSlide].name}
-                      </h4>
-                      <p className="text-2xl font-bold text-gradient mb-4">
-                        ${hotDrops[currentSlide].price}
-                      </p>
-                      <Link
-                        href={`/product/${hotDrops[currentSlide].id}`}
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-charcoal text-white rounded-full text-sm font-semibold hover:bg-charcoal-700 transition-all"
-                      >
-                        View Details
-                        <ArrowRight className="w-4 h-4" />
-                      </Link>
-                    </div>
+                    </Link>
                   </motion.div>
-                </AnimatePresence>
-
-                {/* Slide Indicators */}
-                <div className="flex items-center justify-center gap-2 mt-6">
-                  {hotDrops.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setCurrentSlide(idx)}
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        idx === currentSlide 
-                          ? 'w-8 bg-gradient-to-r from-pink-500 to-peach-500' 
-                          : 'w-2 bg-pink-200 hover:bg-pink-300'
-                      }`}
-                    />
-                  ))}
-                </div>
+                ))}
               </div>
 
-              {/* Decorative floating elements */}
-              <motion.div
-                animate={{ y: [-5, 5, -5] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -top-4 -right-4 w-16 h-16 bg-peach-100 rounded-2xl flex items-center justify-center shadow-lg"
-              >
-                <span className="text-2xl">🔥</span>
-              </motion.div>
-              <motion.div
-                animate={{ y: [5, -5, 5] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -bottom-2 -left-4 w-14 h-14 bg-pink-100 rounded-xl flex items-center justify-center shadow-lg"
-              >
-                <span className="text-xl">✨</span>
-              </motion.div>
+              {/* Dot indicators */}
+              <div className="flex items-center justify-center gap-1.5 mt-4">
+                {hotDrops.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setStartIdx(idx)}
+                    className={`rounded-full transition-all duration-300 ${
+                      idx === startIdx
+                        ? 'w-6 h-2 bg-pink-500'
+                        : 'w-2 h-2 bg-pink-200 hover:bg-pink-300'
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
+          </FadeIn>
+        </div>
+      </div>
+    </section>
+  )
+}
           </FadeIn>
         </div>
       </div>
