@@ -38,19 +38,22 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-cream flex">
-      {/* Left Side - Image */}
-      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-dark-800 to-dark-900 items-center justify-center p-12">
+      {/* Left Side - Decorative */}
+      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-charcoal-800 to-charcoal-900 items-center justify-center p-12 relative overflow-hidden">
+        {/* Decorative accents */}
+        <div className="absolute top-10 left-10 w-48 h-48 bg-pink-500/10 rounded-full blur-2xl" />
+        <div className="absolute bottom-10 right-10 w-64 h-64 bg-peach-500/10 rounded-full blur-3xl" />
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="text-center text-white"
+          className="text-center text-white relative z-10"
         >
-          <div className="w-40 h-40 mx-auto mb-6 bg-primary-400/20 rounded-3xl flex items-center justify-center backdrop-blur-sm">
-            <UserPlus className="w-20 h-20 text-primary-400" />
+          <div className="w-40 h-40 mx-auto mb-6 bg-gradient-to-br from-pink-500/20 to-peach-500/20 rounded-3xl flex items-center justify-center backdrop-blur-sm border border-pink-500/20">
+            <UserPlus className="w-20 h-20 text-pink-400" />
           </div>
-          <h2 className="text-xl font-bold mb-2">Join the Community</h2>
-          <p className="text-dark-300 text-sm max-w-sm">
+          <h2 className="text-2xl font-bold mb-3 font-display">Join the Community</h2>
+          <p className="text-charcoal-200 text-sm max-w-xs leading-relaxed">
             Create an account and start building your ultimate anime figure collection.
           </p>
         </motion.div>
