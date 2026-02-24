@@ -112,12 +112,12 @@ export default function Navbar() {
               ))}
               
               {/* Mobile extras */}
-              <div className="py-3 flex items-center gap-4">
+              {/* <div className="py-3 flex items-center gap-4">
                 <Link href="/wishlist" className="flex items-center gap-2 text-charcoal-600 hover:text-pink-500">
                   <Heart className="w-5 h-5" />
                   Wishlist
                 </Link>
-              </div>
+              </div> */}
               
               <div className="pt-4 border-t border-pink-100 space-y-3">
                 <Link
