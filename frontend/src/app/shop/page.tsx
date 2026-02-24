@@ -205,22 +205,22 @@ export default function ShopPage() {
 
         {/* Pagination */}
         <FadeIn delay={0.3} className="flex items-center justify-center gap-2 mt-12">
-          <button className="px-4 py-2 text-sm bg-white border border-dark-200 rounded-lg hover:bg-primary-50 transition-colors">
+          <button className="px-4 py-2 text-sm bg-white border border-pink-100 rounded-lg hover:bg-soft-pink transition-colors text-charcoal-600">
             Previous
           </button>
           {[1, 2, 3].map(page => (
             <button
               key={page}
-              className={`w-10 h-10 text-sm rounded-lg transition-colors ${
+              className={`w-10 h-10 text-sm rounded-lg transition-colors font-medium ${
                 page === 1 
-                  ? 'bg-dark-800 text-white' 
-                  : 'bg-white border border-dark-200 hover:bg-primary-50'
+                  ? 'bg-gradient-to-r from-pink-500 to-peach-500 text-white shadow-sm' 
+                  : 'bg-white border border-pink-100 text-charcoal-600 hover:bg-soft-pink'
               }`}
             >
               {page}
             </button>
           ))}
-          <button className="px-4 py-2 text-sm bg-white border border-dark-200 rounded-lg hover:bg-primary-50 transition-colors">
+          <button className="px-4 py-2 text-sm bg-white border border-pink-100 rounded-lg hover:bg-soft-pink transition-colors text-charcoal-600">
             Next
           </button>
         </FadeIn>
