@@ -34,10 +34,10 @@ export default function Button({
   const baseClasses = 'inline-flex items-center justify-center gap-2 font-medium rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed'
   
   const variantClasses = {
-    primary: 'bg-dark-800 text-white hover:bg-dark-700 hover:shadow-lg hover:shadow-dark/20',
-    secondary: 'bg-primary-400 text-dark-800 hover:bg-primary-300 hover:shadow-lg hover:shadow-primary-400/20',
-    outline: 'border-2 border-dark-800 text-dark-800 hover:bg-dark-800 hover:text-white',
-    ghost: 'text-dark-600 hover:text-primary-500 hover:bg-primary-50',
+    primary: 'bg-gradient-to-r from-pink-500 to-peach-500 text-white hover:shadow-lg hover:shadow-pink-200/50 hover:-translate-y-0.5',
+    secondary: 'bg-soft-pink text-pink-500 hover:bg-pink-100 hover:shadow-lg hover:shadow-pink-200/30',
+    outline: 'border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-white',
+    ghost: 'text-charcoal-600 hover:text-pink-500 hover:bg-soft-pink',
   }
 
   const sizeClasses = {
