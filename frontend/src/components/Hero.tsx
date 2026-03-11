@@ -6,112 +6,59 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { FadeIn, StaggerContainer, StaggerItem } from './animations'
+import { productsApi } from '@/lib/api'
+import type { Product } from '@/types'
 
-const hotDrops = [
-  {
-    id: 1,
-    name: 'Satoru Gojo',
-    series: 'Jujutsu Kaisen',
-    price: 129.99,
-    comparePrice: 162.99,
-    image: '/assets/sample/1.png',
-    badge: '-20% OFF',
-    badgeColor: 'bg-peach-500',
-    tag: 'Limitdik Kaisen',
-  },
-  {
-    id: 2,
-    name: 'Hatsune Miku',
-    series: 'Vocaloid',
-    price: 76.99,
-    comparePrice: 109.99,
-    image: '/assets/sample/2.png',
-    badge: '-30% OFF',
-    badgeColor: 'bg-pink-500',
-    tag: 'Non OFF Stock',
-  },
-  {
-    id: 3,
-    name: 'Monkey D. Luffy',
-    series: 'One Piece',
-    price: 119.99,
-    comparePrice: 149.99,
-    image: '/assets/sample/3.png',
-    badge: '-20% OFF',
-    badgeColor: 'bg-peach-500',
-    tag: 'Hot ITEM',
-  },
-  {
-    id: 4,
-    name: 'Super Saiyan Goku',
-    series: 'Dragon Ball Z',
-    price: 189.99,
-    comparePrice: 219.99,
-    image: '/assets/sample/4.png',
-    badge: 'Limited',
-    badgeColor: 'bg-charcoal',
-    tag: 'Hot ITEM',
-  },
-  {
-    id: 5,
-    name: 'Sailor Moon',
-    series: 'Sailor Moon',
-    price: 99.99,
-    comparePrice: 129.99,
-    image: '/assets/sample/5.png',
-    badge: '-23% OFF',
-    badgeColor: 'bg-pink-500',
-    tag: 'New',
-  },
-  {
-    id: 6,
-    name: 'Rem',
-    series: 'Re:Zero',
-    price: 149.99,
-    comparePrice: 179.99,
-    image: '/assets/sample/6.png',
-    badge: '-17% OFF',
-    badgeColor: 'bg-pink-500',
-    tag: 'Fan Fav',
-  },
-  {
-    id: 7,
-    name: 'Levi Ackerman',
-    series: 'Attack on Titan',
-    price: 159.99,
-    comparePrice: 189.99,
-    image: '/assets/sample/7.png',
-    badge: '-16% OFF',
-    badgeColor: 'bg-charcoal',
-    tag: 'Best Seller',
-  },
-  {
-    id: 8,
-    name: 'Rem (Maid Ver.)',
-    series: 'Re:Zero',
-    price: 134.99,
-    comparePrice: 164.99,
-    image: '/assets/sample/8.png',
-    badge: '-18% OFF',
-    badgeColor: 'bg-pink-500',
-    tag: 'Popular',
-  },
-  {
-    id: 9,
-    name: 'Izuku Midoriya',
-    series: 'My Hero Academia',
-    price: 109.99,
-    comparePrice: 139.99,
-    image: '/assets/sample/9.png',
-    badge: '-21% OFF',
-    badgeColor: 'bg-peach-500',
-    tag: 'New Arrival',
-  },
+type HotDrop = {
+  id: string
+  name: string
+  series: string
+  price: number
+  comparePrice?: number
+  image: string
+  badge: string
+  badgeColor: string
+  tag: string
+  slug: string
+}
+
+const fallbackDrops: HotDrop[] = [
+  { id: '1', name: 'Satoru Gojo', series: 'Jujutsu Kaisen', price: 129.99, comparePrice: 162.99, image: '/assets/sample/1.png', badge: '-20% OFF', badgeColor: 'bg-peach-500', tag: 'Hot ITEM', slug: '1' },
+  { id: '2', name: 'Hatsune Miku', series: 'Vocaloid', price: 76.99, comparePrice: 109.99, image: '/assets/sample/2.png', badge: '-30% OFF', badgeColor: 'bg-pink-500', tag: 'Fan Fav', slug: '2' },
+  { id: '3', name: 'Monkey D. Luffy', series: 'One Piece', price: 119.99, comparePrice: 149.99, image: '/assets/sample/3.png', badge: '-20% OFF', badgeColor: 'bg-peach-500', tag: 'Hot ITEM', slug: '3' },
 ]
 
+function productToHotDrop(p: Product): HotDrop {
+  const discount = p.comparePrice ? Math.round((1 - p.price / p.comparePrice) * 100) : 0
+  const badge = discount > 0 ? `-${discount}% OFF` : p.isNew ? 'New' : 'Hot'
+  const badgeColor = discount > 20 ? 'bg-pink-500' : p.isNew ? 'bg-peach-500' : 'bg-charcoal'
+  const tag = p.featured ? 'Hot ITEM' : p.isNew ? 'New Arrival' : 'Popular'
+  return {
+    id: p._id,
+    name: p.name,
+    series: p.franchise || p.category,
+    price: p.price,
+    comparePrice: p.comparePrice,
+    image: p.images[0]?.url || '/assets/sample/1.png',
+    badge, badgeColor, tag,
+    slug: p.slug,
+  }
+}
+
 export default function Hero() {
+  const [hotDrops, setHotDrops] = useState<HotDrop[]>(fallbackDrops)
   const [startIdx, setStartIdx] = useState(0)
   const VISIBLE = 3
+
+  useEffect(() => {
+    productsApi.getFeatured().then((products) => {
+      if (products.length > 0) {
+        setHotDrops(products.map(productToHotDrop))
+      }
+    }).catch(() => {
+      // Keep fallback data
+    })
+  }, [])
 
   // Auto-advance
   useEffect(() => {
@@ -249,7 +196,7 @@ export default function Hero() {
                     transition={{ duration: 0.3, delay: i * 0.07 }}
                     className={i > 0 ? 'hidden sm:block' : ''}
                   >
-                    <Link href={`/product/${card.id}`} className="group block">
+                    <Link href={`/product/${card.slug}`} className="group block">
                       {/* Card image */}
                       <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-soft-pink to-soft-peach aspect-[3/4] sm:aspect-[3/4] mb-2">
                         <Image
