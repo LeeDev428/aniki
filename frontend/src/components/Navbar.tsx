@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
-import { Menu, X, Heart, User } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { Menu, X, ShoppingBag, User, LogOut, Package, Shield } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useAuthStore, useCartStore } from '@/lib/store'
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -15,6 +16,29 @@ const navLinks = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const userMenuRef = useRef<HTMLDivElement>(null)
+  const { user, token, logout } = useAuthStore()
+  const itemCount = useCartStore((s) => s.getItemCount())
+  const isLoggedIn = !!token && !!user
+  const isAdmin = user?.role === 'admin'
+
+  // Close user menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+        setUserMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  const handleLogout = () => {
+    logout()
+    setUserMenuOpen(false)
+    setMobileMenuOpen(false)
+  }
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-soft">
@@ -47,29 +71,103 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Right Section - Icons & Auth */}
-          <div className="hidden md:flex items-center gap-4">
- 
+          {/* Right Section */}
+          <div className="hidden md:flex items-center gap-3">
+            {/* Cart */}
+            <Link href="/cart" className="relative p-2 rounded-lg hover:bg-soft-pink transition-colors">
+              <ShoppingBag className="w-5 h-5 text-charcoal-600" />
+              {itemCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 min-w-[18px] flex items-center justify-center bg-gradient-to-r from-pink-500 to-peach-500 text-white text-[10px] font-bold rounded-full">
+                  {itemCount > 99 ? '99+' : itemCount}
+                </span>
+              )}
+            </Link>
 
-            {/* Auth */}
-            <Link
-              href="/auth/login"
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-charcoal-600 hover:text-pink-500 transition-colors"
-            >
-              <User className="w-4 h-4" />
-              Sign In
-            </Link>
-            <Link
-              href="/auth/register"
-              className="px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-pink-500 to-peach-500 rounded-full hover:shadow-lg hover:shadow-pink-200/50 transition-all hover:-translate-y-0.5"
-            >
-              Sign Up
-            </Link>
+            {isLoggedIn ? (
+              /* User Menu */
+              <div className="relative" ref={userMenuRef}>
+                <button
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-soft-pink transition-colors"
+                >
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-r from-pink-500 to-peach-500 flex items-center justify-center text-white text-xs font-bold">
+                    {user.username?.charAt(0).toUpperCase() || 'U'}
+                  </div>
+                  <span className="text-sm font-medium text-charcoal-600 max-w-[100px] truncate">{user.username}</span>
+                </button>
+
+                <AnimatePresence>
+                  {userMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-pink-100 py-2 overflow-hidden"
+                    >
+                      {isAdmin && (
+                        <Link
+                          href="/admin"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-charcoal-600 hover:bg-soft-pink hover:text-pink-500 transition-colors"
+                        >
+                          <Shield className="w-4 h-4" />
+                          Admin Panel
+                        </Link>
+                      )}
+                      <Link
+                        href="/orders"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-charcoal-600 hover:bg-soft-pink hover:text-pink-500 transition-colors"
+                      >
+                        <Package className="w-4 h-4" />
+                        My Orders
+                      </Link>
+                      <div className="border-t border-pink-100 mt-1 pt-1">
+                        <button
+                          onClick={handleLogout}
+                          className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-charcoal-600 hover:bg-red-50 hover:text-red-500 transition-colors w-full"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          Sign Out
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              /* Guest Auth */
+              <>
+                <Link
+                  href="/auth/login"
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-charcoal-600 hover:text-pink-500 transition-colors"
+                >
+                  <User className="w-4 h-4" />
+                  Sign In
+                </Link>
+                <Link
+                  href="/auth/register"
+                  className="px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-pink-500 to-peach-500 rounded-full hover:shadow-lg hover:shadow-pink-200/50 transition-all hover:-translate-y-0.5"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-3">
-            
+          {/* Mobile Right Section */}
+          <div className="flex md:hidden items-center gap-2">
+            {/* Mobile Cart */}
+            <Link href="/cart" className="relative p-2 rounded-lg hover:bg-soft-pink transition-colors">
+              <ShoppingBag className="w-5 h-5 text-charcoal-600" />
+              {itemCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 min-w-[18px] flex items-center justify-center bg-gradient-to-r from-pink-500 to-peach-500 text-white text-[10px] font-bold rounded-full px-1">
+                  {itemCount > 99 ? '99+' : itemCount}
+                </span>
+              )}
+            </Link>
+
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg hover:bg-soft-pink transition-colors"
@@ -110,28 +208,54 @@ export default function Navbar() {
                   </Link>
                 </motion.div>
               ))}
-              
-              {/* Mobile extras */}
-              {/* <div className="py-3 flex items-center gap-4">
-                <Link href="/wishlist" className="flex items-center gap-2 text-charcoal-600 hover:text-pink-500">
-                  <Heart className="w-5 h-5" />
-                  Wishlist
-                </Link>
-              </div> */}
-              
+
               <div className="pt-4 border-t border-pink-100 space-y-3">
-                <Link
-                  href="/auth/login"
-                  className="block w-full py-3 text-center text-charcoal-700 hover:text-pink-500 font-medium transition-colors border border-pink-200 rounded-full"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  href="/auth/register"
-                  className="block w-full py-3 text-center text-white bg-gradient-to-r from-pink-500 to-peach-500 rounded-full font-semibold"
-                >
-                  Sign Up
-                </Link>
+                {isLoggedIn ? (
+                  <>
+                    {isAdmin && (
+                      <Link
+                        href="/admin"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center gap-2 py-3 text-charcoal-700 hover:text-pink-500 font-medium transition-colors"
+                      >
+                        <Shield className="w-4 h-4" />
+                        Admin Panel
+                      </Link>
+                    )}
+                    <Link
+                      href="/orders"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 py-3 text-charcoal-700 hover:text-pink-500 font-medium transition-colors"
+                    >
+                      <Package className="w-4 h-4" />
+                      My Orders
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-2 w-full py-3 text-center text-red-500 font-medium transition-colors border border-red-200 rounded-full justify-center"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/auth/login"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block w-full py-3 text-center text-charcoal-700 hover:text-pink-500 font-medium transition-colors border border-pink-200 rounded-full"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/auth/register"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block w-full py-3 text-center text-white bg-gradient-to-r from-pink-500 to-peach-500 rounded-full font-semibold"
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>
