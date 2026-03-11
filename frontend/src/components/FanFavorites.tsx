@@ -4,49 +4,54 @@ import { Star, ArrowRight, Heart } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 import { FadeIn, StaggerContainer, StaggerItem } from './animations'
+import { productsApi } from '@/lib/api'
+import type { Product } from '@/types'
 
-// Sample fan favorites data - using real sample images
-const favorites = [
-  {
-    id: 7,
-    name: 'Levi Ackerman',
-    series: 'Attack on Titan',
-    price: 159.99,
-    image: '/assets/sample/7.png',
-    rating: 4.9,
-    reviews: 234,
-  },
-  {
-    id: 6,
-    name: 'Rem',
-    series: 'Re:Zero',
-    price: 129.99,
-    image: '/assets/sample/6.png',
-    rating: 4.8,
-    reviews: 189,
-  },
-  {
-    id: 1,
-    name: 'Satoru Gojo',
-    series: 'Jujutsu Kaisen',
-    price: 129.99,
-    image: '/assets/sample/1.png',
-    rating: 4.9,
-    reviews: 312,
-  },
-  {
-    id: 2,
-    name: 'Hatsune Miku',
-    series: 'Vocaloid',
-    price: 76.99,
-    image: '/assets/sample/2.png',
-    rating: 4.7,
-    reviews: 156,
-  },
+type Favorite = {
+  id: string
+  name: string
+  series: string
+  price: number
+  image: string
+  rating: number
+  reviews: number
+  slug: string
+}
+
+const fallbackFavorites: Favorite[] = [
+  { id: '7', name: 'Levi Ackerman', series: 'Attack on Titan', price: 159.99, image: '/assets/sample/7.png', rating: 4.9, reviews: 234, slug: '7' },
+  { id: '6', name: 'Rem', series: 'Re:Zero', price: 129.99, image: '/assets/sample/6.png', rating: 4.8, reviews: 189, slug: '6' },
+  { id: '1', name: 'Satoru Gojo', series: 'Jujutsu Kaisen', price: 129.99, image: '/assets/sample/1.png', rating: 4.9, reviews: 312, slug: '1' },
+  { id: '2', name: 'Hatsune Miku', series: 'Vocaloid', price: 76.99, image: '/assets/sample/2.png', rating: 4.7, reviews: 156, slug: '2' },
 ]
 
+function productToFavorite(p: Product): Favorite {
+  return {
+    id: p._id,
+    name: p.name,
+    series: p.franchise || p.category,
+    price: p.price,
+    image: p.images[0]?.url || '/assets/sample/1.png',
+    rating: 4.5 + Math.random() * 0.5, // Placeholder rating
+    reviews: Math.floor(100 + Math.random() * 200),
+    slug: p.slug,
+  }
+}
+
 export default function FanFavorites() {
+  const [favorites, setFavorites] = useState<Favorite[]>(fallbackFavorites)
+
+  useEffect(() => {
+    productsApi.getAll({ limit: '4', sort: '-createdAt' }).then((res) => {
+      if (res.products.length > 0) {
+        setFavorites(res.products.map(productToFavorite))
+      }
+    }).catch(() => {
+      // Keep fallback
+    })
+  }, [])
   return (
     <section className="relative py-20 bg-white overflow-hidden">
       {/* Decorative backgrounds */}
@@ -79,7 +84,7 @@ export default function FanFavorites() {
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {favorites.map((product, index) => (
             <StaggerItem key={product.id}>
-              <Link href={`/product/${product.id}`}>
+              <Link href={`/product/${product.slug}`}>
                 <motion.div 
                   whileHover={{ y: -8 }}
                   className="group bg-white rounded-3xl overflow-hidden shadow-soft hover:shadow-card-hover transition-all duration-300"
