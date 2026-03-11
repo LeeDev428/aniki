@@ -1,3 +1,5 @@
+import type { Product, Order } from '@/types'
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
 
 type RequestOptions = {
@@ -50,22 +52,34 @@ export const authApi = {
 export const productsApi = {
   getAll: (params?: Record<string, string>) => {
     const query = params ? '?' + new URLSearchParams(params).toString() : ''
-    return api(`/products${query}`)
+    return api<{ products: Product[]; totalPages: number; currentPage: number; total: number }>(`/products${query}`)
   },
-  getFeatured: () => api('/products/featured'),
-  getNew: () => api('/products/new'),
-  getPreOrders: () => api('/products/pre-orders'),
-  getBySlug: (slug: string) => api(`/products/slug/${slug}`),
-  getById: (id: string) => api(`/products/${id}`),
+  getFeatured: () => api<Product[]>('/products/featured'),
+  getNew: () => api<Product[]>('/products/new'),
+  getPreOrders: () => api<Product[]>('/products/pre-orders'),
+  getBySlug: (slug: string) => api<Product>(`/products/slug/${encodeURIComponent(slug)}`),
+  getById: (id: string) => api<Product>(`/products/${encodeURIComponent(id)}`),
+  create: (token: string, data: Record<string, unknown>) =>
+    api<Product>('/products', { method: 'POST', body: data, token }),
+  update: (token: string, id: string, data: Record<string, unknown>) =>
+    api<Product>(`/products/${encodeURIComponent(id)}`, { method: 'PATCH', body: data, token }),
+  delete: (token: string, id: string) =>
+    api<{ message: string }>(`/products/${encodeURIComponent(id)}`, { method: 'DELETE', token }),
 }
 
 // Orders endpoints
 export const ordersApi = {
-  create: (orderData: Record<string, unknown>) =>
-    api('/orders', { method: 'POST', body: orderData }),
+  create: (orderData: Record<string, unknown>, token?: string) =>
+    api<Order>('/orders', { method: 'POST', body: orderData, token }),
   getMyOrders: (token: string) =>
-    api('/orders/my-orders', { token }),
-  getById: (id: string) => api(`/orders/${id}`),
+    api<Order[]>('/orders/my-orders', { token }),
+  getById: (id: string, token?: string) => api<Order>(`/orders/${encodeURIComponent(id)}`, { token }),
+  getAll: (token: string, params?: Record<string, string>) => {
+    const query = params ? '?' + new URLSearchParams(params).toString() : ''
+    return api<{ orders: Order[]; totalPages: number; currentPage: number; total: number }>(`/orders/all${query}`, { token })
+  },
+  updateStatus: (token: string, id: string, data: { status?: string; paymentStatus?: string }) =>
+    api<Order>(`/orders/${encodeURIComponent(id)}/status`, { method: 'PATCH', body: data, token }),
 }
 
 // User endpoints
