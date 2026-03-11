@@ -33,7 +33,7 @@ router.post('/register', async (req, res) => {
         id: user._id,
         username: user.username,
         email: user.email,
-        stats: user.stats
+        role: user.role,
       }
     });
   } catch (err) {
@@ -64,7 +64,7 @@ router.post('/login', async (req, res) => {
         username: user.username,
         email: user.email,
         avatar: user.avatar,
-        stats: user.stats
+        role: user.role,
       }
     });
   } catch (err) {
