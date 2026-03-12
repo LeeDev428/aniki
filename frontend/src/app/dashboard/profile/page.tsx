@@ -1,9 +1,11 @@
 'use client'
-
-import { useState, useEffect } from 'react'
-import { User, MapPin, Check, AlertCircle } from 'lucide-react'
-import { useAuthStore } from '@/lib/store'
-import { userApi } from '@/lib/api'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+export default function DashboardProfileRedirect() {
+  const router = useRouter()
+  useEffect(() => { router.replace('/user/profile') }, [router])
+  return null
+}
 
 type ProfileForm = {
   username: string
