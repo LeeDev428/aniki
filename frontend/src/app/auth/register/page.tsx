@@ -41,7 +41,7 @@ export default function RegisterPage() {
         user: { id: string; username: string; email: string; avatar?: string; role: 'customer' | 'admin' }
       }
       setAuth(data.user, data.token)
-      router.push('/')
+      router.push(data.user.role === 'admin' ? '/admin' : '/user')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed')
     } finally {
