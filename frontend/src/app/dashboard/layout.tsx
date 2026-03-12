@@ -1,22 +1,12 @@
 'use client'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+export default function DashboardLayoutRedirect({ children }: { children: React.ReactNode }) {
+  const router = useRouter()
+  useEffect(() => { router.replace('/user') }, [router])
+  return <>{children}</>
+}
 
-import { useEffect, useState } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
-import Link from 'next/link'
-import Image from 'next/image'
-import {
-  LayoutDashboard,
-  Package,
-  ShoppingCart,
-  User,
-  LogOut,
-  Menu,
-  X,
-  ChevronRight,
-  Store,
-} from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useAuthStore, useCartStore } from '@/lib/store'
 
 const sidebarLinks = [
   { href: '/dashboard', label: 'Overview', icon: LayoutDashboard, exact: true },
