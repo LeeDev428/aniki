@@ -1,28 +1,39 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Eye, EyeOff, ArrowRight, Shield, Sparkles } from 'lucide-react'
+import { Eye, EyeOff, Shield } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Input, Button } from '@/components/ui'
+import { useAuthStore } from '@/lib/store'
+import { authApi } from '@/lib/api'
 
 export default function LoginPage() {
+  const router = useRouter()
+  const { setAuth } = useAuthStore()
   const [showPassword, setShowPassword] = useState(false)
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  })
+  const [formData, setFormData] = useState({ email: '', password: '' })
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    // Simulate login
-    setTimeout(() => {
+    setError('')
+    try {
+      const data = await authApi.login(formData.email, formData.password) as {
+        token: string
+        user: { id: string; username: string; email: string; avatar?: string; role: 'customer' | 'admin' }
+      }
+      setAuth(data.user, data.token)
+      router.push(data.user.role === 'admin' ? '/admin' : '/')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Invalid email or password')
+    } finally {
       setIsLoading(false)
-      window.location.href = '/'
-    }, 1500)
+    }
   }
 
   return (
@@ -94,6 +105,9 @@ export default function LoginPage() {
               </Link>
             </div>
 
+            {error && (
+              <p className="text-xs text-red-500 bg-red-50 px-3 py-2 rounded-lg">{error}</p>
+            )}
             <Button
               type="submit"
               variant="primary"
