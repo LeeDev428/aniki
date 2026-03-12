@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Menu, X, ShoppingBag, User, LogOut, Package, Shield } from 'lucide-react'
+import { Menu, X, ShoppingBag, User, LogOut, Package, Shield, LayoutDashboard } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -116,7 +116,15 @@ export default function Navbar() {
                         </Link>
                       )}
                       <Link
-                        href="/orders"
+                        href="/dashboard"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-charcoal-600 hover:bg-soft-pink hover:text-pink-500 transition-colors"
+                      >
+                        <LayoutDashboard className="w-4 h-4" />
+                        My Account
+                      </Link>
+                      <Link
+                        href="/dashboard/orders"
                         onClick={() => setUserMenuOpen(false)}
                         className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-charcoal-600 hover:bg-soft-pink hover:text-pink-500 transition-colors"
                       >
@@ -223,7 +231,15 @@ export default function Navbar() {
                       </Link>
                     )}
                     <Link
-                      href="/orders"
+                      href="/dashboard"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 py-3 text-charcoal-700 hover:text-pink-500 font-medium transition-colors"
+                    >
+                      <LayoutDashboard className="w-4 h-4" />
+                      My Account
+                    </Link>
+                    <Link
+                      href="/dashboard/orders"
                       onClick={() => setMobileMenuOpen(false)}
                       className="flex items-center gap-2 py-3 text-charcoal-700 hover:text-pink-500 font-medium transition-colors"
                     >
