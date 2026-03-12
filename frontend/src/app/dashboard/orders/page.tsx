@@ -1,11 +1,11 @@
 'use client'
-
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import { Package, ChevronRight, Clock } from 'lucide-react'
-import { useAuthStore } from '@/lib/store'
-import { ordersApi } from '@/lib/api'
-import type { Order } from '@/types'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+export default function DashboardOrdersRedirect() {
+  const router = useRouter()
+  useEffect(() => { router.replace('/user/orders') }, [router])
+  return null
+}
 
 export default function DashboardOrdersPage() {
   const { token } = useAuthStore()
