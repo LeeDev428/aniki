@@ -116,7 +116,7 @@ export default function Navbar() {
                         </Link>
                       )}
                       <Link
-                        href="/dashboard"
+                        href="/user"
                         onClick={() => setUserMenuOpen(false)}
                         className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-charcoal-600 hover:bg-soft-pink hover:text-pink-500 transition-colors"
                       >
@@ -124,7 +124,7 @@ export default function Navbar() {
                         My Account
                       </Link>
                       <Link
-                        href="/dashboard/orders"
+                        href="/user/orders"
                         onClick={() => setUserMenuOpen(false)}
                         className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-charcoal-600 hover:bg-soft-pink hover:text-pink-500 transition-colors"
                       >
@@ -231,7 +231,7 @@ export default function Navbar() {
                       </Link>
                     )}
                     <Link
-                      href="/dashboard"
+                      href="/user"
                       onClick={() => setMobileMenuOpen(false)}
                       className="flex items-center gap-2 py-3 text-charcoal-700 hover:text-pink-500 font-medium transition-colors"
                     >
@@ -239,7 +239,7 @@ export default function Navbar() {
                       My Account
                     </Link>
                     <Link
-                      href="/dashboard/orders"
+                      href="/user/orders"
                       onClick={() => setMobileMenuOpen(false)}
                       className="flex items-center gap-2 py-3 text-charcoal-700 hover:text-pink-500 font-medium transition-colors"
                     >
