@@ -1,11 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Eye, EyeOff, Check, UserPlus } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Input, Button } from '@/components/ui'
+import { useAuthStore } from '@/lib/store'
+import { authApi } from '@/lib/api'
 
 const passwordRequirements = [
   { label: 'At least 8 characters', test: (p: string) => p.length >= 8 },
@@ -15,25 +18,35 @@ const passwordRequirements = [
 ]
 
 export default function RegisterPage() {
+  const router = useRouter()
+  const { setAuth } = useAuthStore()
   const [showPassword, setShowPassword] = useState(false)
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  })
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' })
   const [isLoading, setIsLoading] = useState(false)
   const [agreedToTerms, setAgreedToTerms] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!agreedToTerms) return
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match')
+      return
+    }
     setIsLoading(true)
-    // Simulate registration
-    setTimeout(() => {
+    setError('')
+    try {
+      const data = await authApi.register(formData.name.trim(), formData.email, formData.password) as {
+        token: string
+        user: { id: string; username: string; email: string; avatar?: string; role: 'customer' | 'admin' }
+      }
+      setAuth(data.user, data.token)
+      router.push('/')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Registration failed')
+    } finally {
       setIsLoading(false)
-      window.location.href = '/auth/login'
-    }, 1500)
+    }
   }
 
   return (
@@ -129,7 +142,7 @@ export default function RegisterPage() {
             {formData.password && (
               <div className="space-y-1 p-2.5 bg-charcoal-50 rounded-lg">
                 {passwordRequirements.map((req, index) => (
-                  <div key={index} className="flex items-center gap-2 text-[11px]">)
+                  <div key={index} className="flex items-center gap-2 text-[11px]">
                     <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
                       req.test(formData.password) ? 'bg-green-500' : 'bg-charcoal-200'
                     }`}>
@@ -168,6 +181,10 @@ export default function RegisterPage() {
                 <Link href="/privacy" className="text-pink-500 hover:text-pink-600">Privacy Policy</Link>
               </span>
             </label>
+
+            {error && (
+              <p className="text-xs text-red-500 bg-red-50 px-3 py-2 rounded-lg">{error}</p>
+            )}
 
             <Button
               type="submit"
