@@ -28,7 +28,7 @@ export default function LoginPage() {
         user: { id: string; username: string; email: string; avatar?: string; role: 'customer' | 'admin' }
       }
       setAuth(data.user, data.token)
-      router.push(data.user.role === 'admin' ? '/admin' : '/')
+      router.push(data.user.role === 'admin' ? '/admin' : '/dashboard')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Invalid email or password')
     } finally {
