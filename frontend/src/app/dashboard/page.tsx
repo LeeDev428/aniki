@@ -1,12 +1,11 @@
 'use client'
-
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { Package, ShoppingCart, ArrowRight, Clock } from 'lucide-react'
-import { useAuthStore, useCartStore } from '@/lib/store'
-import { ordersApi } from '@/lib/api'
-import type { Order } from '@/types'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+export default function DashboardRedirect() {
+  const router = useRouter()
+  useEffect(() => { router.replace('/user') }, [router])
+  return null
+}
 
 export default function DashboardPage() {
   const { user, token } = useAuthStore()
